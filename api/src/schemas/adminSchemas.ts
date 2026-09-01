@@ -15,5 +15,10 @@ export const updateAdminProductSchema = z.object({
     slug: z.string().min(5).optional(),
     description: z.string().min(15).nullable().optional(),
     imageURL: z.string().optional(),
-    price: z.number().optional()
-})
+    price: 
+        z.number()
+        .positive()
+        .multipleOf(0.01)
+        .transform(v => Math.round(v * 100))
+        .optional()
+});

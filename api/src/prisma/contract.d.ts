@@ -33,7 +33,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'8c07c1b16ba18a98e0768620d2feadce23fa68f5c962bceac153f1aec791100a'>;
+  StorageHashBase<'c0312eb3087f52a8705307f29a8ee0db9cc4af7e2d7d21d2f92e86d2eab83cad'>;
 export type ExecutionHash =
   ExecutionHashBase<'7d7e15b30d7ab41c534ef5ad5076eec86d476d65951e29fe83602213a6fca2c0'>;
 export type ProfileHash =
@@ -245,7 +245,7 @@ export type FieldOutputTypes = {
       readonly id: CodecTypes['pg/text@1']['output'];
       readonly name: CodecTypes['pg/text@1']['output'];
       readonly slug: CodecTypes['pg/text@1']['output'];
-      readonly description: CodecTypes['pg/text@1']['output'];
+      readonly description: CodecTypes['pg/text@1']['output'] | null;
       readonly imageURL: CodecTypes['pg/text@1']['output'];
       readonly price: CodecTypes['pg/int4@1']['output'];
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
@@ -259,7 +259,7 @@ export type FieldInputTypes = {
       readonly id: CodecTypes['pg/text@1']['input'];
       readonly name: CodecTypes['pg/text@1']['input'];
       readonly slug: CodecTypes['pg/text@1']['input'];
-      readonly description: CodecTypes['pg/text@1']['input'];
+      readonly description: CodecTypes['pg/text@1']['input'] | null;
       readonly imageURL: CodecTypes['pg/text@1']['input'];
       readonly price: CodecTypes['pg/int4@1']['input'];
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
@@ -271,7 +271,7 @@ export type StorageColumnTypes = {
   readonly public: {
     readonly product: {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
-      readonly description: CodecTypes['pg/text@1']['output'];
+      readonly description: CodecTypes['pg/text@1']['output'] | null;
       readonly id: CodecTypes['pg/text@1']['output'];
       readonly imageURL: CodecTypes['pg/text@1']['output'];
       readonly name: CodecTypes['pg/text@1']['output'];
@@ -285,7 +285,7 @@ export type StorageColumnInputTypes = {
   readonly public: {
     readonly product: {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
-      readonly description: CodecTypes['pg/text@1']['input'];
+      readonly description: CodecTypes['pg/text@1']['input'] | null;
       readonly id: CodecTypes['pg/text@1']['input'];
       readonly imageURL: CodecTypes['pg/text@1']['input'];
       readonly name: CodecTypes['pg/text@1']['input'];
@@ -333,7 +333,7 @@ type ContractBase = Omit<
                 readonly description: {
                   readonly nativeType: 'text';
                   readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
+                  readonly nullable: true;
                 };
                 readonly imageURL: {
                   readonly nativeType: 'text';
@@ -397,7 +397,7 @@ type ContractBase = Omit<
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
               readonly description: {
-                readonly nullable: false;
+                readonly nullable: true;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
               readonly imageURL: {

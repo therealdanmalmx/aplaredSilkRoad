@@ -23,7 +23,7 @@
                 }
               },
               "description": {
-                "nullable": false,
+                "nullable": true,
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
@@ -127,7 +127,7 @@
                 "description": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
-                  "nullable": false
+                  "nullable": true
                 },
                 "id": {
                   "codecId": "pg/text@1",
@@ -186,7 +186,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "8c07c1b16ba18a98e0768620d2feadce23fa68f5c962bceac153f1aec791100a"
+    "storageHash": "c0312eb3087f52a8705307f29a8ee0db9cc4af7e2d7d21d2f92e86d2eab83cad"
   },
   "execution": {
     "executionHash": "7d7e15b30d7ab41c534ef5ad5076eec86d476d65951e29fe83602213a6fca2c0",
