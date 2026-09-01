@@ -131,10 +131,6 @@
                 },
                 "id": {
                   "codecId": "pg/text@1",
-                  "default": {
-                    "expression": "autoincrement()",
-                    "kind": "function"
-                  },
                   "nativeType": "text",
                   "nullable": false
                 },
@@ -190,12 +186,23 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "5bb74e000e5e4a25b536b51f1d811ca373ffa6bf34516f4b9c52b48ab71f167e"
+    "storageHash": "8c07c1b16ba18a98e0768620d2feadce23fa68f5c962bceac153f1aec791100a"
   },
   "execution": {
-    "executionHash": "76e53f2736c142038ab2818401822e0764d98f369ee026cc24ae0b5c431e1625",
+    "executionHash": "7d7e15b30d7ab41c534ef5ad5076eec86d476d65951e29fe83602213a6fca2c0",
     "mutations": {
       "defaults": [
+        {
+          "onCreate": {
+            "id": "uuidv4",
+            "kind": "generator"
+          },
+          "ref": {
+            "column": "id",
+            "namespace": "public",
+            "table": "product"
+          }
+        },
         {
           "onCreate": {
             "id": "timestampNow",

@@ -33,9 +33,9 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'5bb74e000e5e4a25b536b51f1d811ca373ffa6bf34516f4b9c52b48ab71f167e'>;
+  StorageHashBase<'8c07c1b16ba18a98e0768620d2feadce23fa68f5c962bceac153f1aec791100a'>;
 export type ExecutionHash =
-  ExecutionHashBase<'76e53f2736c142038ab2818401822e0764d98f369ee026cc24ae0b5c431e1625'>;
+  ExecutionHashBase<'7d7e15b30d7ab41c534ef5ad5076eec86d476d65951e29fe83602213a6fca2c0'>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
 
@@ -319,10 +319,6 @@ type ContractBase = Omit<
                   readonly nativeType: 'text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: false;
-                  readonly default: {
-                    readonly kind: 'function';
-                    readonly expression: 'autoincrement()';
-                  };
                 };
                 readonly name: {
                   readonly nativeType: 'text';
@@ -470,6 +466,14 @@ type ContractBase = Omit<
     readonly executionHash: ExecutionHash;
     readonly mutations: {
       readonly defaults: readonly [
+        {
+          readonly ref: {
+            readonly namespace: 'public';
+            readonly table: 'product';
+            readonly column: 'id';
+          };
+          readonly onCreate: { readonly kind: 'generator'; readonly id: 'uuidv4' };
+        },
         {
           readonly ref: {
             readonly namespace: 'public';

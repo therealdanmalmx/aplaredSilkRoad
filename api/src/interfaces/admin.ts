@@ -1,4 +1,4 @@
-export interface CreateAdminProduct {
+export interface Product {
     id: string,
     name: string,
     slug: string,

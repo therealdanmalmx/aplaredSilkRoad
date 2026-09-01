@@ -1,7 +1,7 @@
 // use prisma-next
 
 model Product {
-  id            String  @id @default(autoincrement())
+  id            String  @id @default(uuid())
   name          String  @unique
   slug          String  @unique
   description   String
