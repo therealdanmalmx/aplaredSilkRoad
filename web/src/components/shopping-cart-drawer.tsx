@@ -37,7 +37,6 @@ export default function ShoppingCartDrawer() {
           <DrawerTitle className="text-primary">Shopping cart</DrawerTitle>
           <DrawerDescription>Manage your items</DrawerDescription>
         </DrawerHeader>
-        <div className=""></div>
         <div className="scroll-fade-none overflow-y-auto">
           <ShoppingCart />
         </div>
