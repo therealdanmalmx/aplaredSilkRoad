@@ -1,6 +1,8 @@
-export interface AdminProducts {
+export interface CreateAdminProduct {
     id: string,
     name: string,
     slug: string,
-    description: string
+    description: string,
+    imageURL: string,
+    price: number,
 }

@@ -4,21 +4,27 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "contract:emit": "prisma contract emit"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.1",
     "@hono/standard-validator": "^0.4.0",
+    "@prisma/orm-postgres": "8.0.0-rc.8",
+    "dotenv": "^17.4.2",
     "hono": "^4.13.5",
     "zod": "^4.5.4"
   },
   "devDependencies": {
     "@types/node": "^26.1.1",
+    "prisma": "^8.0.0-rc.12",
     "tsx": "^4.23.0",
     "typescript": "^7.0.2"
   },
   "allowScripts": {
     "fsevents@2.3.3": true,
-    "esbuild@0.28.2": true
+    "esbuild@0.28.2": true,
+    "msgpackr-extract@3.0.4": true,
+    "workerd@1.20260704.1": true
   }
 }

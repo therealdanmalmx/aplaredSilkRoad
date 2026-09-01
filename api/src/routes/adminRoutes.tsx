@@ -1,11 +1,10 @@
 import { sValidator } from "@hono/standard-validator";
 import { Hono } from "hono";
-import type { AdminProducts } from "../interfaces/admin.js";
-import { createAdminProductScema } from "../schemas/adminSchemas.js";
+import { creatAdminProductSchema, updateAdminProductSchema } from "../schemas/adminSchemas.ts";
 
 const app = new Hono();
 
-const products: AdminProducts[] = [
+const products: {id: string, name: string, slug: string, description: string | null}[] = [
     {
         id: "8ecc3f63-cae7-4ef3-96d5-323fd121a969",
         name: "Silk Pants",
@@ -35,13 +34,38 @@ app.get("/:id", (c) => {
     return c.json(product);
 });
 
-app.post("/", sValidator("json", createAdminProductScema), (c) => {
+app.post("/", sValidator("json", creatAdminProductSchema), (c) => {
     const data = c.req.valid("json");
     const product = {id: crypto.randomUUID(), ...data};
+    
+    products.push(product);
+    
+    return c.json(product, 201);
+});
+
+app.put("/:id", sValidator("json", updateAdminProductSchema), (c) => {
+    const id = c.req.param("id");
+    const data = c.req.valid("json");
+    
+    const product = products.find(p => p.id === id);
+
+    if (!product) {
+        return c.json({error: "Product not found"}, 404);
+    }
+
+    if (data.name !== undefined) {
+        product.name = data.name
+    }
+    if (data.slug !== undefined) {
+        product.slug = data.slug
+    }
+    if (data.description !== undefined) {
+        product.description = data.description
+    }
 
     products.push(product);
 
-    return c.json(product, 201);
+    return c.json(product);
 });
 
 app.delete("/:id", (c) => {
@@ -54,7 +78,7 @@ app.delete("/:id", (c) => {
 
     products.splice(productIndex, 1);
 
-    return c.json(products);
-})
+    return c.body(null, 204);
+});
 
 export default app;
