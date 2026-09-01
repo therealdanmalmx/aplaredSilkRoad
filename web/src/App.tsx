@@ -3,7 +3,7 @@ import "./App.css";
 import MainLayout from "./layouts/main-layout";
 function App() {
   return (
-    // Flytta index-propertyn till indexsidan när den är skapad och inlagd som child inuti routen för MainLayout.
+    // Flytta index-propertyn till indexsidans element när den är skapad och inlagd som child inuti routen för MainLayout.
     <BrowserRouter>
       <Routes>
         <Route index element={<MainLayout />}></Route>
