@@ -1,12 +1,17 @@
+import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.css";
-import { Button } from "./components/ui/button";
+import MainLayout from "./layouts/main-layout";
 
 function App() {
   return (
     <>
-      <div className="flex min-h-svh flex-col items-center justify-center">
-        <Button>Click me</Button>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route></Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
