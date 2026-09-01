@@ -21,9 +21,16 @@ app.get("/", async (c) => {
 });
 
 app.post("/", sValidator("json", creatAdminProductSchema), async (c) => {
-  const data = c.req.valid("json");
-  const product = await db.orm.public.Product.create(data);
-  return c.json(product, 201);
+    const slug = c.req.param("slug");
+    const existingProduct = await db.orm.public.Product.where({ slug })
+
+    if (existingProduct) {
+        return c.json({error: "Product already exists"})
+    }
+
+    const data = c.req.valid("json");
+    const product = await db.orm.public.Product.create(data);
+    return c.json(product, 201);
 });
 
 
