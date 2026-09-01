@@ -1,18 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.css";
 import MainLayout from "./layouts/main-layout";
-
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<MainLayout />}>
-            <Route></Route>
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
+    // Flytta index-propertyn till indexsidan när den är skapad och inlagd som child inuti routen för MainLayout.
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<MainLayout />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
