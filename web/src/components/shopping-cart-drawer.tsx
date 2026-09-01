@@ -32,12 +32,15 @@ export default function ShoppingCartDrawer() {
       onOpenChange={setIsOpen}
     >
       <DrawerTrigger render={<Button variant="outline" />}>Cart</DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="h-full">
         <DrawerHeader>
-          <DrawerTitle>Shopping cart</DrawerTitle>
+          <DrawerTitle className="text-primary">Shopping cart</DrawerTitle>
           <DrawerDescription>Manage your items</DrawerDescription>
         </DrawerHeader>
-        <ShoppingCart />
+        <div className=""></div>
+        <div className="scroll-fade-none overflow-y-auto">
+          <ShoppingCart />
+        </div>
         <DrawerFooter>
           <Button onClick={toCheckoutButtonHandler}>To Checkout</Button>
           <DrawerClose render={<Button variant="outline" />}>
