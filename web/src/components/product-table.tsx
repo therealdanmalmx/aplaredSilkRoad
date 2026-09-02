@@ -17,12 +17,12 @@ export function ProductTable({ products }: { products: Product[] }) {
     <Table className="w-full md:w-10/12 mx-auto">
       <TableHeader>
         <TableRow>
-          <TableHead className="text-xl text-orange-400 font-bold">Product</TableHead>
-          <TableHead className="text-xl text-orange-400 font-bold">Name</TableHead>
-          <TableHead className="text-xl text-orange-400 font-bold">Description</TableHead>
-          <TableHead className="text-xl text-orange-400 font-bold">Slug</TableHead>
-          <TableHead className="text-xl text-orange-400 font-bold">Price</TableHead>
-          <TableHead className="text-xl text-orange-400 font-bold text-right">Actions</TableHead>
+          <TableHead className="text-xl text-primary font-bold">Product</TableHead>
+          <TableHead className="text-xl text-primary font-bold">Name</TableHead>
+          <TableHead className="text-xl text-primary font-bold">Description</TableHead>
+          <TableHead className="text-xl text-primary font-bold">Slug</TableHead>
+          <TableHead className="text-xl text-primary font-bold">Price</TableHead>
+          <TableHead className="text-xl text-primary font-bold text-right">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

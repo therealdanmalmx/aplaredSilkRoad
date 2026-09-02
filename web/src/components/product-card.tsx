@@ -26,7 +26,7 @@ export function ProductCard(product: Product) {
         <CardDescription>{product.description}</CardDescription>
       </CardHeader>
       <CardFooter className="flex flex-col space-y-2">
-        <Button className="rounded-none w-full cursor-pointer bg-orange-400 hover:bg-orange-500"><LuPencil /> Update</Button>
+        <Button className="rounded-none w-full cursor-pointer bg-primary"><LuPencil /> Update</Button>
         <CustomDialog />
       </CardFooter>
     </Card>
