@@ -7,18 +7,8 @@ import {
     CardTitle
 } from "@/components/ui/card";
 
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { LuPencil, LuTrash2 } from "react-icons/lu";
+import CustomDialog from "@/custom-dialog";
+import { LuPencil } from "react-icons/lu";
 import type { Product } from '../../../api/src/interfaces/admin';
 
 export function ProductCard(product: Product) {
@@ -39,22 +29,22 @@ export function ProductCard(product: Product) {
       </CardHeader>
       <CardFooter className="flex flex-col space-y-2">
         <Button className="rounded-none w-full cursor-pointer bg-orange-400 hover:bg-orange-500"><LuPencil /> Update</Button>
-         <AlertDialog>
-                        <AlertDialogTrigger render={<Button variant="outline" className="rounded-none text-white w-full cursor-pointer bg-orange-400 hover:bg-orange-500"><LuTrash2 />Delete</Button>} />
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                            <AlertDialogTitle className="text-orange-500">Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete the product.
-                            </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                            <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
-                            <AlertDialogAction className="cursor-pointer bg-red-500 hover:bg-red-400">Delete</AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                        </AlertDialog>
-        {/* <Button className="rounded-none w-full cursor-pointer bg-orange-400 hover:bg-orange-500"><LuTrash2 /> Delete</Button> */}
+        <CustomDialog />
+         {/* <AlertDialog>
+            <AlertDialogTrigger render={<Button variant="outline" className="rounded-none text-white w-full cursor-pointer bg-orange-400 hover:bg-orange-500"><LuTrash2 />Delete</Button>} />
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                <AlertDialogTitle className="text-orange-500">Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete the product.
+                </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
+                <AlertDialogAction className="cursor-pointer bg-red-500 hover:bg-red-400">Delete</AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+            </AlertDialog> */}
       </CardFooter>
     </Card>
   )
