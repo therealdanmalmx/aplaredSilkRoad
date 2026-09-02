@@ -1,0 +1,12 @@
+// use prisma-next
+
+model Product {
+  id            String  @id @default(uuid())
+  name          String  @unique
+  slug          String  @unique
+  description   String?
+  imageURL      String
+  price         Int
+  createdAt     TimestamptzString @default(now())
+  updatedAt     temporal.updatedAtString()
+}
