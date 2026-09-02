@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { LuPencil, LuTrash2 } from "react-icons/lu";
-import type { Product } from '../../../api/src/interfaces/admin';
+import type { Product } from "../../../api/src/interfaces/admin";
 
 export function ProductCard(product: Product) {
   return (
@@ -21,16 +21,18 @@ export function ProductCard(product: Product) {
       </div>
       <CardHeader>
         <CardTitle>{product.name}</CardTitle>
-        <CardDescription>
-        {product.description}
-        </CardDescription>
+        <CardDescription>{product.description}</CardDescription>
       </CardHeader>
       <CardFooter className="flex">
-        <Button className="cursor-pointer">Update <LuPencil /></Button>
-        <Button className="cursor-pointer">Delete <LuTrash2 /></Button>
+        <Button className="cursor-pointer">
+          Update <LuPencil />
+        </Button>
+        <Button className="cursor-pointer">
+          Delete <LuTrash2 />
+        </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
 
 export default ProductCard;
