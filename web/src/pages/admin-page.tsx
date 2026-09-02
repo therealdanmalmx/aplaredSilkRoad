@@ -28,14 +28,8 @@ useEffect(() => {
 }, []);
     
   return (
-    <div className="mx-8 md:mx-12">
+    <div className="mx-8 md:mx-12 h-screen">
         <h1 className="text-2xl text-primary font-bold my-4 text-center">Admin Page</h1>
-        <section className="flex justify-end items-center space-x-4 my-6">
-            <p className="text-primary text-xl">Add new product </p>
-            <Link to="/admin/add-product" className="flex items-center">
-                <LuCirclePlus className="text-primary hover:text-orange-500 duration-300 ease-in-out cursor-pointer" size={32}/>
-            </Link>
-        </section>
         {isLoading &&
             <div className="flex justify-center items-center">
                 <MoonLoader 
@@ -48,6 +42,13 @@ useEffect(() => {
         }
 
         {!isLoading &&
+        <>
+            <section className="flex justify-center md:justify-end items-center space-x-4 my-6">
+                <p className="text-primary text-xl">Add new product </p>
+                <Link to="/admin/add-product" className="flex items-center">
+                    <LuCirclePlus className="text-primary hover:text-orange-600 duration-300 ease-in-out cursor-pointer" size={32}/>
+                </Link>
+            </section>
             <div>
                 <div className="hidden md:block">
                     <ProductTable products={products}  />
@@ -59,6 +60,7 @@ useEffect(() => {
                 ))}
                 </div>
             </div>
+        </>
         }    
     </div>
   )
