@@ -11,7 +11,7 @@ import type { Product } from '../../../api/src/interfaces/admin';
 
 export function ProductCard(product: Product) {
   return (
-    <Card className="relative mx-auto w-full max-w-sm pt-0 h-96">
+    <Card className="relative mx-auto w-11/12 sm pt-0 h-96">
       <div className="relative aspect-video overflow-hidden">
         <img
           src={product.imageURL}
@@ -25,9 +25,9 @@ export function ProductCard(product: Product) {
         {product.description}
         </CardDescription>
       </CardHeader>
-      <CardFooter className="flex">
-        <Button className="cursor-pointer">Update <LuPencil /></Button>
-        <Button className="cursor-pointer">Delete <LuTrash2 /></Button>
+      <CardFooter className="flex flex-col space-y-2">
+        <Button className="rounded-none w-full cursor-pointer bg-orange-400 hover:bg-orange-500"><LuPencil /> Update</Button>
+        <Button className="rounded-none w-full cursor-pointer bg-orange-400 hover:bg-orange-500"><LuTrash2 /> Delete</Button>
       </CardFooter>
     </Card>
   )
