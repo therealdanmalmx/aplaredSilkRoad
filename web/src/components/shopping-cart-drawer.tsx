@@ -9,13 +9,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import ShoppingCart from "./shopping-cart";
 
 export default function ShoppingCartDrawer() {
   const navigate = useNavigate();
-  const isMobile = true; // TOFIX
+  const isMobile = useIsMobile();
 
   const [isOpen, setIsOpen] = useState(false);
 

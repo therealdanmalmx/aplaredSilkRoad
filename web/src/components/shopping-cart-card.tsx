@@ -6,7 +6,7 @@ interface Props {
 
 export default function ShoppingCartCard(props: Props) {
   return (
-    <article className="flex gap-1 mb-2">
+    <article className="flex gap-1 mb-2 p-2">
       <div className="h-full">
         <img
           src={`${props.cartItem.imageURL}`}
