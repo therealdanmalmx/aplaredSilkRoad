@@ -10,8 +10,8 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { ShoppingCartIcon } from "lucide-react";
 import { useState } from "react";
+import { LuShoppingCart } from "react-icons/lu";
 import { useNavigate } from "react-router";
 import ShoppingCart from "./shopping-cart";
 
@@ -33,8 +33,10 @@ export default function ShoppingCartDrawer() {
       open={isOpen}
       onOpenChange={setIsOpen}
     >
-      <DrawerTrigger render={<Button variant="outline" />}>
-        <ShoppingCartIcon />
+      <DrawerTrigger
+        render={<Button variant="ghost" className="cursor-pointer" />}
+      >
+        <LuShoppingCart className="text-primary " />
       </DrawerTrigger>
       <DrawerContent className="h-full">
         <DrawerHeader>
