@@ -1,12 +1,12 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import CustomDialog from "@/custom-dialog";
 import { LuPencil } from "react-icons/lu";
@@ -14,7 +14,7 @@ import type { Product } from "../../../api/src/interfaces/admin";
 
 export function ProductTable({ products }: { products: Product[] }) {    
   return (
-    <Table className="w-full md:w-10/12 mx-auto">
+    <Table className="w-full mx-auto">
       <TableHeader>
         <TableRow>
           <TableHead className="text-xl text-primary font-bold">Product</TableHead>

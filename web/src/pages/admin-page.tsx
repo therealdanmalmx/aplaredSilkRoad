@@ -2,6 +2,7 @@
 import ProductCard from "@/components/product-card";
 import ProductTable from "@/components/product-table";
 import { useEffect, useState } from "react";
+import { LuCirclePlus } from "react-icons/lu";
 import type { Product } from "../../../api/src/interfaces/admin";
 
 const AdminPage = () => {
@@ -17,8 +18,12 @@ const AdminPage = () => {
     }, []);
     
   return (
-    <div>
-        <h1 className="text-2xl font-bold my-4 text-center">Admin Page</h1>
+    <div className="mx-12">
+        <h1 className="text-2xl text-primary font-bold my-4 text-center">Admin Page</h1>
+        <section className="flex justify-end items-center space-x-4 my-6">
+            <p className="text-primary text-xl">Add new product </p>
+            <LuCirclePlus className="text-primary hover:text-orange-500 duration-300 ease-in-out cursor-pointer" size={32}/>
+        </section>
         {
             window.innerWidth > 760 
             ? 
