@@ -9,6 +9,9 @@ export default function NavMenu() {
       <Button variant="link">
         <Link to="admin">Admin</Link>
       </Button>
+      <Button variant="link">
+        <Link to="checkout">Checkout</Link>
+      </Button>
     </nav>
   );
 }
