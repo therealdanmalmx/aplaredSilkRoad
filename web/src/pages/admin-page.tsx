@@ -26,7 +26,7 @@ const AdminPage = () => {
             :
             <div className="flex flex-col gap-8">
                 {products.map((product) => (
-                        <ProductCard key={product.id} {...product}/>
+                    <ProductCard key={product.id} {...product}/>
                 ))}
             </div>
         }
