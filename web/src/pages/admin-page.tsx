@@ -3,6 +3,7 @@ import ProductCard from "@/components/product-card";
 import ProductTable from "@/components/product-table";
 import { useEffect, useState } from "react";
 import { LuCirclePlus } from "react-icons/lu";
+import { Link, Outlet } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
 
 const AdminPage = () => {
@@ -22,19 +23,21 @@ const AdminPage = () => {
         <h1 className="text-2xl text-primary font-bold my-4 text-center">Admin Page</h1>
         <section className="flex justify-end items-center space-x-4 my-6">
             <p className="text-primary text-xl">Add new product </p>
-            <LuCirclePlus className="text-primary hover:text-orange-500 duration-300 ease-in-out cursor-pointer" size={32}/>
+            <Link to="/admin/add-product" className="flex items-center">
+                <LuCirclePlus className="text-primary hover:text-orange-500 duration-300 ease-in-out cursor-pointer" size={32}/>
+            </Link>
         </section>
-        {
-            window.innerWidth > 760 
-            ? 
-                (<ProductTable products={products} />)
-            :
-            <div className="flex flex-col gap-8">
-                {products.map((product) => (
-                    <ProductCard key={product.id} {...product}/>
-                ))}
+        <div className="hidden md:block">
+            <ProductTable products={products}  />
+
+        </div>
+
+            <div className="flex flex-col gap-8 md:hidden">
+            {products.map((product) => (
+                <ProductCard key={product.id} {...product} />
+            ))}
             </div>
-        }
+        <Outlet />
     </div>
   )
 }
