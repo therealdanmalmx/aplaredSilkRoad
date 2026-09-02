@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
 
 import ProductCard from "@/components/product-card";
-import type { Product } from '../../../api/src/interfaces/admin';
+import ProductTable from "@/components/product-table";
+import { useEffect, useState } from "react";
+import type { Product } from "../../../api/src/interfaces/admin";
 
 const AdminPage = () => {
     const [products, setProducts] = useState<Array<Product>>([]);
@@ -13,15 +14,22 @@ const AdminPage = () => {
             setProducts(data)
         }
         fetchProducts();
-    }, [])
-
-
+    }, []);
+    
   return (
-    <div className="flex justify-between gap-2 items-center">
-        {products.map((product) => {
-            return (
-                <ProductCard key={product.id} {...product}/>)
-        })}
+    <div>
+        <h1 className="text-2xl font-bold my-4 text-center">Admin Page</h1>
+        {
+            window.innerWidth > 760 
+            ? 
+                (<ProductTable products={products} />)
+            :
+            <div className="flex flex-col gap-8">
+                {products.map((product) => (
+                        <ProductCard key={product.id} {...product}/>
+                ))}
+            </div>
+        }
     </div>
   )
 }
