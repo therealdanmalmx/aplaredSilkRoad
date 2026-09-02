@@ -4,8 +4,8 @@ import { NavigationMenu } from "../ui/navigation-menu";
 export default function NavMenu() {
   return (
     <NavigationMenu>
-      <Link to="shop">Shop</Link>
-      <Link to="Admin">Admin</Link>
+      <Link to="/">Shop</Link>
+      <Link to="/admin">Admin</Link>
     </NavigationMenu>
   );
 }
