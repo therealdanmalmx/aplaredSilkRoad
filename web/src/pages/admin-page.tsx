@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import ProductCard from "@/components/product-card";
 import type { Product } from '../../../api/src/interfaces/admin';
 
 const AdminPage = () => {
@@ -16,9 +17,10 @@ const AdminPage = () => {
 
 
   return (
-    <div>
+    <div className="flex justify-between gap-2 items-center">
         {products.map((product) => {
-            return <div key={product.id}>{product.name}</div>
+            return (
+                <ProductCard key={product.id} {...product}/>)
         })}
     </div>
   )
