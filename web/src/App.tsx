@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import MainLayout from "./layouts/main-layout";
 import AdminPage from "./pages/admin-page";
+import CheckoutPage from "./pages/checkout-page";
 import HomePage from "./pages/home-page";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
