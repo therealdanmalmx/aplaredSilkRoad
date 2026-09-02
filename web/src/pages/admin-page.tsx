@@ -17,7 +17,7 @@ const AdminPage = () => {
 
 
   return (
-    <div className="flex justify-between gap-2 items-center">
+    <div className="flex justify-between gap-2 items-center m-8">
         {products.map((product) => {
             return (
                 <ProductCard key={product.id} {...product}/>)
