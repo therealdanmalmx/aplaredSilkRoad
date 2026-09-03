@@ -1,4 +1,4 @@
-import ProductCard from "@/components/admin-product-card";
+import AdminProductCard from "@/components/admin-product-card";
 import ProductTable from "@/components/product-table";
 import { useEffect, useState } from "react";
 import { LuCirclePlus } from "react-icons/lu";
@@ -59,7 +59,7 @@ const AdminPage = () => {
 
             <div className="flex flex-col gap-8 md:hidden">
               {products.map((product) => (
-                <ProductCard key={product.id} {...product} />
+                <AdminProductCard key={product.id} {...product} />
               ))}
             </div>
           </div>
