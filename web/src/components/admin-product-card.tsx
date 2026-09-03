@@ -9,6 +9,7 @@ import {
 
 import CustomDialog from "@/custom-dialog";
 import { LuPencil } from "react-icons/lu";
+import { Link } from "react-router";
 import type { Product } from '../../../api/src/interfaces/admin';
 
 export function AdminProductCard(product: Product) {
@@ -26,7 +27,9 @@ export function AdminProductCard(product: Product) {
         <CardDescription>{product.description}</CardDescription>
       </CardHeader>
       <CardFooter className="flex flex-col space-y-2">
-        <Button className="rounded-none w-full cursor-pointer bg-primary"><LuPencil /> Update</Button>
+        <Link to="update-product">
+          <Button className="rounded-none w-73 cursor-pointer bg-primary"><LuPencil /> Update</Button>
+        </Link>
         <CustomDialog />
       </CardFooter>
     </Card>
