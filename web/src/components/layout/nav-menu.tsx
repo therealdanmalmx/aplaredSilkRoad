@@ -4,7 +4,7 @@ export default function NavMenu() {
   return (
     <nav className="flex p-4 gap-4">
       <Button variant="link">
-        <Link to="shop">Shop</Link>
+        <Link to="/">Shop</Link>
       </Button>
       <Button variant="link">
         <Link to="checkout">Checkout</Link>

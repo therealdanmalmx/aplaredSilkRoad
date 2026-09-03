@@ -5,7 +5,9 @@ export default function MainLayout() {
   return (
     <div>
       <Header />
-      <Outlet />
+      <main className="min-h-0 flex-1">
+        <Outlet />
+      </main>
     </div>
   );
 }
