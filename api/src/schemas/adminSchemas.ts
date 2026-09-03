@@ -4,10 +4,10 @@ export const creatAdminProductSchema = z.object({
     name: z.string().min(5, "Name must be at least 5 characters"),
     slug: z.string().min(5).regex(/^[a-z0-9-]+$/, "Lowercase letters, numbers and dashes only. Minimum 5 characters"),
     description: z.string().min(15, "Description is required with a minimum of 15 characters"),
-    imageURL: z.url("Must be a valid URL"),
+    imageURL: z.string("Must be a valid URL"),
     price: z.number()
-        .positive("Price must be greater than 0")    
-        .multipleOf(0.01)
+        .positive("Price must be greater than 0")
+        .multipleOf(0.01, "Price can have at most 2 decimals")
         .transform(v => Math.round(v * 100)),
 });
 
