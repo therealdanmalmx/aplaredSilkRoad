@@ -4,6 +4,7 @@ import AdminPage from "./pages/admin-page";
 import CheckoutPage from "./pages/checkout-page";
 import NewAdminProductPage from "./pages/new-admi-product-page";
 import StartPage from "./pages/start-page";
+import UpdateAdminProduct from "./pages/update-admin-product";
 
 function App() {
   return (
