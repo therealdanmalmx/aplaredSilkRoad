@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerContent,
@@ -19,25 +18,30 @@ export default function MenuDrawer() {
   ];
 
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}>
+    <Drawer swipeDirection="left" open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger
-        render={<LuMenu className="text-primary cursor-pointer" />}
+        render={<LuMenu className="text-primary cursor-pointer text-2xl" />}
       />
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Explore Aplared Silk Road</DrawerTitle>
+      <DrawerContent className="h-full bg-background border-none">
+        <DrawerHeader className="bg-muted-foreground">
+          <DrawerTitle className="font-eb-garamond font-bold text-2xl text-secondary-foreground mb-4">
+            Explore Aplared Silk Road
+          </DrawerTitle>
         </DrawerHeader>
-        {routes.map((r) => {
-          return (
-            <Button
-              key={r.route}
-              variant="link"
-              onClick={() => setIsOpen(false)}
-            >
-              <Link to={r.route}>{r.title}</Link>
-            </Button>
-          );
-        })}
+        <div className="flex flex-col mt-4">
+          {routes.map((r) => {
+            return (
+              <Link
+                key={r.route}
+                to={r.route}
+                onClick={() => setIsOpen(false)}
+                className="flex items-center w-full h-16 px-4 text-xl text-neutral cursor-pointer hover:text-secondary-foreground hover:bg-muted-foreground duration-200 rounded-md"
+              >
+                {r.title}
+              </Link>
+            );
+          })}
+        </div>
       </DrawerContent>
     </Drawer>
   );
