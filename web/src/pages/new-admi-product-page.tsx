@@ -4,9 +4,13 @@
     FieldGroup,
     FieldLabel
 } from "@/components/ui/field"
+
 import { Input } from "@/components/ui/input"
 import { Button } from "@base-ui/react"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
+
+import { creatAdminProductSchema } from "../../../api/src/schemas/adminSchemas"
 
 type NewAdminProductFormData = {
   name: string
@@ -25,6 +29,8 @@ const NewAdminProductPage = () => {
       imageURL: "",
       price: undefined
     },
+    resolver: zodResolver(creatAdminProductSchema),
+    mode: "onSubmit",
   })
 
   function onSubmit(data: NewAdminProductFormData) {
@@ -42,13 +48,14 @@ const NewAdminProductPage = () => {
               render={({ field, fieldState }) => (
                 <Field 
                     data-invalid={fieldState.invalid} 
-                    >
-                  <FieldLabel 
+                >
+                <FieldLabel 
                     htmlFor="form-name"
                     className="text-primary font-bold"
+                    
                 >
-                    Name
-                  </FieldLabel>
+                Name
+                </FieldLabel>
                   <Input
                     {...field}
                     id="form-name"
@@ -106,6 +113,7 @@ const NewAdminProductPage = () => {
                     id="form-description"
                     aria-invalid={fieldState.invalid}
                     autoComplete="off"
+                    className="border-t-0 border-l-0 border-r-0 rounded-none p-2 bg-zinc-100 border-b border-primary"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -172,4 +180,4 @@ const NewAdminProductPage = () => {
 }
 
 
-export default NewAdminProductPage
+export default NewAdminProductPage;
