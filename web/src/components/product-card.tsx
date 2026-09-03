@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
@@ -6,12 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import type { Product } from "../../../api/src/interfaces/admin";
 
-import CustomDialog from "@/custom-dialog";
-import { LuPencil } from "react-icons/lu";
-import type { Product } from '../../../api/src/interfaces/admin';
-
-export function ProductCard(product: Product) {
+export default function ProductCard(product: Product) {
   return (
     <Card className="relative mx-auto w-full sm pt-0 h-96">
       <div className="relative aspect-video overflow-hidden">
@@ -25,12 +21,7 @@ export function ProductCard(product: Product) {
         <CardTitle>{product.name}</CardTitle>
         <CardDescription>{product.description}</CardDescription>
       </CardHeader>
-      <CardFooter className="flex flex-col space-y-2">
-        <Button className="rounded-none w-full cursor-pointer bg-primary"><LuPencil /> Update</Button>
-        <CustomDialog />
-      </CardFooter>
+      <CardFooter></CardFooter>
     </Card>
   );
 }
-
-export default ProductCard;
