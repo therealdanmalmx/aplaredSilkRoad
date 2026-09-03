@@ -7,10 +7,14 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@base-ui/react"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router"
+import { z } from "zod"
 import type { Product } from "../../../api/src/interfaces/admin"
+import { creatAdminProductSchema, updateAdminProductSchema } from "../../../api/src/schemas/adminSchemas"
+
 
 interface AdminFormProps {
     title: string,
@@ -19,23 +23,72 @@ interface AdminFormProps {
 const AdminForm = ({ title }: AdminFormProps) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [product, setProduct] = useState<Product>();
+  const navigate = useNavigate()
+  const { id } = useParams();
+  const isUpdate = Boolean(id);
 
-  const form = useForm<Product>({
+  const productFormSchema = creatAdminProductSchema.extend({
+  price: z
+    .string()
+    .trim()
+    .min(1, "Price is required")
+    .regex(/^\d+([.,]\d{1,2})?$/, "Enter a price like 19.99")
+    .transform((v) => Number(v.replace(",", "."))),
+});
+
+type ProductFormInput = {
+  name: string
+  slug: string
+  description: string
+  imageURL: string
+  price: string
+}
+
+type ProductFormOutput = {
+  name: string
+  slug: string
+  description: string
+  imageURL: string
+  price: number
+}
+
+const schema = isUpdate ? updateAdminProductSchema : creatAdminProductSchema
+
+  const form = useForm<ProductFormInput, unknown, ProductFormOutput>({
+    resolver: zodResolver(schema) as any,
     defaultValues: {
       name: "",
       slug: "",
       description: "",
       imageURL: "",
-      price: undefined
+      price: ""
     },
     mode: "onSubmit",
   })
   
-  function onSubmit(data: Product) {
-    // Do something with the form values.
-    console.log(data)
-    
+async function onSubmit(data: ProductFormOutput) {
+  try {
+    const res = await fetch(
+      isUpdate ? `http://localhost:3000/admin/${id}` : "http://localhost:3000/admin",
+      {
+        method: isUpdate ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, price: Math.round(data.price * 100) }),
+      },
+    )
+
+    if (!res.ok) {
+      const body = await res.text()
+      throw new Error(body || res.statusText)
+    }
+
+    await res.json()
+    navigate("/admin")
+  } catch (error) {
+    console.error(error)
+    form.setError("root", { message: "Could not save the product. Please try again." })
   }
+}
   
   const params = useParams();
   
@@ -82,7 +135,7 @@ const AdminForm = ({ title }: AdminFormProps) => {
                     aria-invalid={fieldState.invalid}
                     autoComplete="off"
                     className="border-t-0 border-l-0 border-r-0 rounded-none p-2 bg-zinc-100 border-b border-primary"
-                    value={location.pathname === `/admin/update-product` ? product?.name : ""}
+                    value={location.pathname === `/admin/update-product` ? field.value : ""}
                     />
             
                     <FieldError errors={[fieldState.error]} />
