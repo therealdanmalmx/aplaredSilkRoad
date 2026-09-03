@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import CustomDialog from "@/custom-dialog";
+import CustomDialog from "@/components/custom-dialog";
 import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";

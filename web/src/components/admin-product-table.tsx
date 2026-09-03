@@ -1,4 +1,5 @@
 
+import CustomDialog from "@/components/custom-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -8,7 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import CustomDialog from "@/custom-dialog";
 import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
