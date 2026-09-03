@@ -1,4 +1,3 @@
-
 import { AdminProductCard } from "@/components/admin-product-card";
 import { AdminProductTable } from "@/components/admin-product-table";
 import { useEffect, useState } from "react";
@@ -44,22 +43,24 @@ const AdminPage = () => {
 
       {!isLoading && (
         <>
-            <section className="flex justify-center md:justify-end items-center space-x-4 my-6">
-                <p className="text-primary text-xl">Add new product </p>
-                <Link to="/admin/add-product" className="flex items-center">
-                    <LuCirclePlus className="text-primary hover:text-orange-600 duration-300 ease-in-out cursor-pointer" size={32}/>
-                </Link>
-            </section>
-            <div>
-                <div className="hidden md:block">
-                    <AdminProductTable products={products}  />
-                </div>
+          <section className="flex justify-center md:justify-end items-center space-x-4 my-6">
+            <p className="text-primary text-xl">Add new product </p>
+            <Link to="/admin/add-product" className="flex items-center">
+              <LuCirclePlus
+                className="text-primary hover:text-orange-600 duration-300 ease-in-out cursor-pointer"
+                size={32}
+              />
+            </Link>
+          </section>
+          <div>
+            <div className="hidden md:block">
+              <AdminProductTable products={products} />
+            </div>
 
-                <div className="flex flex-col gap-8 md:hidden">
-                {products.map((product) => (
-                    <AdminProductCard key={product.id} {...product} />
-                ))}
-                </div>
+            <div className="flex flex-col gap-8 md:hidden">
+              {products.map((product) => (
+                <AdminProductCard key={product.id} {...product} />
+              ))}
             </div>
           </div>
         </>
