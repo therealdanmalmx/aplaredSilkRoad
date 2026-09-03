@@ -1,5 +1,5 @@
 
-import ProductCard from "@/components/product-card";
+import ProductCard from "@/components/admin-product-card";
 import ProductTable from "@/components/product-table";
 import { useEffect, useState } from "react";
 import { LuCirclePlus } from "react-icons/lu";
