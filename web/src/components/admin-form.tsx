@@ -7,26 +7,24 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@base-ui/react"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router"
 import type { Product } from "../../../api/src/interfaces/admin"
+
 
 interface AdminFormProps {
     title: string,
 }
 
 const AdminForm = ({ title }: AdminFormProps) => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [product, setProduct] = useState<Product>();
-
   const form = useForm<Product>({
     defaultValues: {
       name: "",
       slug: "",
       description: "",
       imageURL: "",
-      price: undefined
+      price: 0
     },
     mode: "onSubmit",
   })
@@ -37,26 +35,34 @@ const AdminForm = ({ title }: AdminFormProps) => {
     
   }
   
-  const params = useParams();
-  
+const { id } = useParams();
+
   useEffect(() => {
+    if (!id) {
+      return;
+    }
     const fetchProduct = async () => {
       try {
-      const res = await fetch(`http://localhost:3000/admin`);
-      if (!res.ok){ 
-        throw new Error(res.statusText);
-      };
-      setProducts(await res.json());
+        const res = await fetch(`http://localhost:3000/admin/${id}`)
 
-      setProduct(products.find((product) => product.id === params.id));
-    
-      console.log({product});
-    } catch (err) {
-      console.error(err);
+        if (!res.ok) {
+          throw new Error(res.statusText)
+        };
+
+        const data = await res.json()
+        form.reset({
+          name: data.name,
+          slug: data.slug,
+          description: data.description,
+          imageURL: data.imageURL,
+          price: data.price/100,
+        })      
+      } catch (err) {
+        console.error(err)
+      }
     }
-  };
-  fetchProduct();
-}, [form]);
+    fetchProduct()
+  }, [id, form])
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -82,7 +88,6 @@ const AdminForm = ({ title }: AdminFormProps) => {
                     aria-invalid={fieldState.invalid}
                     autoComplete="off"
                     className="border-t-0 border-l-0 border-r-0 rounded-none p-2 bg-zinc-100 border-b border-primary"
-                    value={location.pathname === `/admin/update-product` ? product?.name : ""}
                     />
             
                     <FieldError errors={[fieldState.error]} />
@@ -108,6 +113,7 @@ const AdminForm = ({ title }: AdminFormProps) => {
                     aria-invalid={fieldState.invalid}
                     autoComplete="off"
                     className="border-t-0 border-l-0 border-r-0 rounded-none p-2 bg-zinc-100 border-b border-primary"
+
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -186,6 +192,7 @@ const AdminForm = ({ title }: AdminFormProps) => {
                     aria-invalid={fieldState.invalid}
                     autoComplete="off"
                     className="border-t-0 border-l-0 border-r-0 rounded-none p-2 bg-zinc-100 border-b border-primary"
+
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
