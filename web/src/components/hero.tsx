@@ -9,7 +9,7 @@ export default function Hero({ imgSource }: Props) {
       <div className="absolute z-10 gap-4 inset-0 flex flex-col justify-center items-center px-4 text-center">
         <div className="w-full, max-w-3xl">
           <h1 className="font-eb-garamond text-4xl font-bold italic text-white">
-            Whereas Luxuries from the <s>Great Silk Road</s> Aplared
+            Luxuries from the <s>Great Silk Road</s> Aplared
           </h1>
           <p className="mt-4 text-neutral-light">
             Discover hand-selected treasures, rare spices, and masterful
