@@ -11,7 +11,7 @@ import CustomDialog from "@/custom-dialog";
 import { LuPencil } from "react-icons/lu";
 import type { Product } from '../../../api/src/interfaces/admin';
 
-export function ProductCard(product: Product) {
+export function AdminProductCard(product: Product) {
   return (
     <Card className="relative mx-auto w-full sm pt-0 h-96">
       <div className="relative aspect-video overflow-hidden">
@@ -33,4 +33,4 @@ export function ProductCard(product: Product) {
   );
 }
 
-export default ProductCard;
+export default AdminProductCard;
