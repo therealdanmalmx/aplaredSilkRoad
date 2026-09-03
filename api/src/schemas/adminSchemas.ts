@@ -12,6 +12,6 @@ export const updateAdminProductSchema = z.object({
     name: z.string().min(5).optional(),
     slug: z.string().min(5).optional(),
     description: z.string().min(15).nullable().optional(),
-    imageURL: z.string().optional(),
+    imageURL: z.url().optional(),
     price: z.number().int("Price must be in whole cents").positive("Price must be greater than 0").optional(),
 });
