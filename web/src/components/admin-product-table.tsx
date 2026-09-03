@@ -10,9 +10,10 @@ import {
 } from "@/components/ui/table";
 import CustomDialog from "@/custom-dialog";
 import { LuPencil } from "react-icons/lu";
+import { Link } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
 
-export function ProductTable({ products }: { products: Product[] }) {    
+export function AdminProductTable({ products }: { products: Product[] }) {    
   return (
     <Table className="w-full mx-auto">
       <TableHeader>
@@ -34,7 +35,9 @@ export function ProductTable({ products }: { products: Product[] }) {
                 <TableCell>{product.slug}</TableCell>
                 <TableCell>{product.price/100}kr</TableCell>
                 <TableCell className="text-right p-0">
-                <Button className="cursor-pointer"><LuPencil /></Button>
+                <Link to={`update-product/${product.id}`}>
+                  <Button className="cursor-pointer"><LuPencil /></Button>
+                </Link>
                 <CustomDialog />
                 </TableCell>
             </TableRow>
@@ -45,4 +48,4 @@ export function ProductTable({ products }: { products: Product[] }) {
 }
 
 
-export default ProductTable;
+export default AdminProductTable;

@@ -14,6 +14,7 @@ function App() {
           <Route path="admin">
             <Route index element={<AdminPage />} />
             <Route path="add-product" element={<NewAdminProductPage />} />
+            <Route path="update-product/:id" element={<UpdateAdminProduct />} />
           </Route>
           <Route path="checkout" element={<CheckoutPage />} />
         </Route>
