@@ -6,12 +6,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LuPencil, LuTrash2 } from "react-icons/lu";
-import type { Product } from "../../../api/src/interfaces/admin";
+
+import CustomDialog from "@/custom-dialog";
+import { LuPencil } from "react-icons/lu";
+import type { Product } from '../../../api/src/interfaces/admin';
 
 export function ProductCard(product: Product) {
   return (
-    <Card className="relative mx-auto w-full max-w-sm pt-0 h-96">
+    <Card className="relative mx-auto w-full sm pt-0 h-96">
       <div className="relative aspect-video overflow-hidden">
         <img
           src={product.imageURL}
@@ -23,13 +25,9 @@ export function ProductCard(product: Product) {
         <CardTitle>{product.name}</CardTitle>
         <CardDescription>{product.description}</CardDescription>
       </CardHeader>
-      <CardFooter className="flex">
-        <Button className="cursor-pointer">
-          Update <LuPencil />
-        </Button>
-        <Button className="cursor-pointer">
-          Delete <LuTrash2 />
-        </Button>
+      <CardFooter className="flex flex-col space-y-2">
+        <Button className="rounded-none w-full cursor-pointer bg-primary"><LuPencil /> Update</Button>
+        <CustomDialog />
       </CardFooter>
     </Card>
   );
