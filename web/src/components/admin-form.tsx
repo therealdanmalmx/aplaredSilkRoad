@@ -7,11 +7,13 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@base-ui/react"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useNavigate, useParams } from "react-router"
 import type { Product } from "../../../api/src/interfaces/admin"
+import { creatAdminProductSchema } from "../../../api/src/schemas/adminSchemas"
 
 interface AdminFormProps {
     title: string,
