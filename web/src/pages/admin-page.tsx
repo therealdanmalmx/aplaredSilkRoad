@@ -1,6 +1,6 @@
 
-import ProductCard from "@/components/admin-product-card";
-import ProductTable from "@/components/product-table";
+import { AdminProductCard } from "@/components/admin-product-card";
+import { AdminProductTable } from "@/components/admin-product-table";
 import { useEffect, useState } from "react";
 import { LuCirclePlus } from "react-icons/lu";
 import { Link } from "react-router";
@@ -51,12 +51,12 @@ useEffect(() => {
             </section>
             <div>
                 <div className="hidden md:block">
-                    <ProductTable products={products}  />
+                    <AdminProductTable products={products}  />
                 </div>
 
                 <div className="flex flex-col gap-8 md:hidden">
                 {products.map((product) => (
-                    <ProductCard key={product.id} {...product} />
+                    <AdminProductCard key={product.id} {...product} />
                 ))}
                 </div>
             </div>
