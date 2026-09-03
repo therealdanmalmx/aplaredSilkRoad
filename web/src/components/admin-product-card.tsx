@@ -27,7 +27,7 @@ export function AdminProductCard(product: Product) {
         <CardDescription>{product.description}</CardDescription>
       </CardHeader>
       <CardFooter className="flex flex-col space-y-2">
-        <Link to="update-product">
+        <Link to={`update-product/${product.id}`}>
           <Button className="rounded-none w-73 cursor-pointer bg-primary"><LuPencil /> Update</Button>
         </Link>
         <CustomDialog />
