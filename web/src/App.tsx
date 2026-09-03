@@ -2,8 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import MainLayout from "./layouts/main-layout";
 import AdminPage from "./pages/admin-page";
 import CheckoutPage from "./pages/checkout-page";
-import NewAdminProductPage from "./pages/new-admi-product-page";
+import NewAdminProductPage from "./pages/new-admin-product-page";
 import StartPage from "./pages/start-page";
+import UpdateAdminProduct from "./pages/update-admin-product";
 
 function App() {
   return (
