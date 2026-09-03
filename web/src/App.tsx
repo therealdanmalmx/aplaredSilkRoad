@@ -4,6 +4,7 @@ import AdminPage from "./pages/admin-page";
 import CheckoutPage from "./pages/checkout-page";
 import HomePage from "./pages/home-page";
 import NewAdminProductPage from "./pages/new-admi-product-page";
+import UpdateAdminProduct from "./pages/update-admin-product";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="admin">
             <Route index element={<AdminPage />} />
             <Route path="add-product" element={<NewAdminProductPage />} />
+            <Route path="update-product/:id" element={<UpdateAdminProduct />} />
           </Route>
           <Route path="checkout" element={<CheckoutPage />} />
         </Route>
