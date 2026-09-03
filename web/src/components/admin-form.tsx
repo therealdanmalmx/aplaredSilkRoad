@@ -8,11 +8,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@base-ui/react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useNavigate, useParams } from "react-router"
 import { z } from "zod"
-import type { Product } from "../../../api/src/interfaces/admin"
 import { creatAdminProductSchema, updateAdminProductSchema } from "../../../api/src/schemas/adminSchemas"
 
 
@@ -21,8 +20,6 @@ interface AdminFormProps {
 }
 
 const AdminForm = ({ title }: AdminFormProps) => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [product, setProduct] = useState<Product>();
   const navigate = useNavigate()
   const { id } = useParams();
   const isUpdate = Boolean(id);
@@ -55,7 +52,7 @@ type ProductFormOutput = {
 const schema = isUpdate ? updateAdminProductSchema : creatAdminProductSchema
 
   const form = useForm<ProductFormInput, unknown, ProductFormOutput>({
-    resolver: zodResolver(schema) as any,
+    resolver: zodResolver(productFormSchema) as any,
     defaultValues: {
       name: "",
       slug: "",
@@ -90,24 +87,29 @@ async function onSubmit(data: ProductFormOutput) {
   }
 }
     
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-      const res = await fetch(`http://localhost:3000/admin`);
-      if (!res.ok){ 
-        throw new Error(res.statusText);
-      };
-      setProducts(await res.json());
+useEffect(() => {
+  if (!id) return
 
-      setProduct(products.find((product) => product.id === id));
-    
-      console.log({product});
+  const fetchProduct = async () => {
+    try {
+      const res = await fetch(`http://localhost:3000/admin/${id}`)
+      if (!res.ok) throw new Error(res.statusText)
+      const data = await res.json()
+
+      form.reset({
+        name: data.name,
+        slug: data.slug,
+        description: data.description,
+        imageURL: data.imageURL,
+        price: String(data.price / 100),
+      })
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-  };
-  fetchProduct();
-}, [form]);
+  }
+
+  fetchProduct()
+}, [id, form])
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -133,7 +135,6 @@ async function onSubmit(data: ProductFormOutput) {
                     aria-invalid={fieldState.invalid}
                     autoComplete="off"
                     className="border-t-0 border-l-0 border-r-0 rounded-none p-2 bg-zinc-100 border-b border-primary"
-                    value={location.pathname === `/admin/update-product` ? field.value : ""}
                     />
             
                     <FieldError errors={[fieldState.error]} />
