@@ -9,6 +9,7 @@ import {
 
 import CustomDialog from "@/custom-dialog";
 import { LuPencil } from "react-icons/lu";
+import { Link } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
 
 export function AdminProductCard(product: Product) {
