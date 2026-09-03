@@ -89,9 +89,7 @@ async function onSubmit(data: ProductFormOutput) {
     form.setError("root", { message: "Could not save the product. Please try again." })
   }
 }
-  
-  const params = useParams();
-  
+    
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -101,7 +99,7 @@ async function onSubmit(data: ProductFormOutput) {
       };
       setProducts(await res.json());
 
-      setProduct(products.find((product) => product.id === params.id));
+      setProduct(products.find((product) => product.id === id));
     
       console.log({product});
     } catch (err) {
