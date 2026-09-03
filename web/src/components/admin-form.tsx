@@ -12,7 +12,7 @@ import { useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useNavigate, useParams } from "react-router"
 import { z } from "zod"
-import { creatAdminProductSchema, updateAdminProductSchema } from "../../../api/src/schemas/adminSchemas"
+import { creatAdminProductSchema } from "../../../api/src/schemas/adminSchemas"
 
 
 interface AdminFormProps {
@@ -49,10 +49,9 @@ type ProductFormOutput = {
   price: number
 }
 
-const schema = isUpdate ? updateAdminProductSchema : creatAdminProductSchema
 
   const form = useForm<ProductFormInput, unknown, ProductFormOutput>({
-    resolver: zodResolver(productFormSchema) as any,
+    resolver: zodResolver(productFormSchema),
     defaultValues: {
       name: "",
       slug: "",
@@ -88,12 +87,17 @@ async function onSubmit(data: ProductFormOutput) {
 }
     
 useEffect(() => {
-  if (!id) return
+  if (!id) {
+    return;
+  }
 
   const fetchProduct = async () => {
     try {
       const res = await fetch(`http://localhost:3000/admin/${id}`)
-      if (!res.ok) throw new Error(res.statusText)
+      if (!res.ok) {
+        throw new Error(res.statusText)
+      }
+
       const data = await res.json()
 
       form.reset({
