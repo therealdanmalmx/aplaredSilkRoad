@@ -11,7 +11,7 @@ import type { Product } from "../../../api/src/interfaces/admin";
 
 export function AdminProductCard(product: Product) {
   return (
-    <Card className="relative mx-auto w-full max-w-sm pt-0 h-96">
+    <Card className="relative mx-auto w-full sm pt-0 h-96">
       <div className="relative aspect-video overflow-hidden">
         <img
           src={product.imageURL}
@@ -34,5 +34,3 @@ export function AdminProductCard(product: Product) {
     </Card>
   );
 }
-
-export default AdminProductCard;
