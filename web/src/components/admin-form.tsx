@@ -7,18 +7,24 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@base-ui/react"
-import { useEffect } from "react"
+import { Loader2 } from "lucide-react"
+import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import type { Product } from "../../../api/src/interfaces/admin"
-
 
 interface AdminFormProps {
     title: string,
 }
 
 const AdminForm = ({ title }: AdminFormProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const isUpdate = Boolean(id)
+
   const form = useForm<Product>({
+    resolver: zodResolver(creatAdminProductSchema),
     defaultValues: {
       name: "",
       slug: "",
@@ -26,30 +32,49 @@ const AdminForm = ({ title }: AdminFormProps) => {
       imageURL: "",
       price: 0
     },
-    mode: "onSubmit",
   })
   
-  function onSubmit(data: Product) {
-    // Do something with the form values.
-    console.log(data)
+  async function onSubmit(data: Product) {
+    console.log({isUpdate});
+    setIsSubmitting(true);
+    try {
+      {const res = await fetch(
+        isUpdate ? `http://localhost:3000/admin/${id}` : "http://localhost:3000/admin" , {
+        method: isUpdate ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },        
+        body: JSON.stringify({
+          ...data,
+          price: Number(String(data.price).replace(",", ".")),
+        })
+      })
+      console.log(data);
+      if (!res.ok) {
+        throw new Error(`${res.status} ${res.statusText}`);  
+      }
+      await res.json();
+      setIsSubmitting(false);
+      navigate("/admin");
+    }
+    } catch (error) {
+      console.error(error);
+    } 
     
   }
   
-const { id } = useParams();
-
   useEffect(() => {
     if (!id) {
       return;
     }
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/admin/${id}`)
+        let res = await fetch(isUpdate ? `http://localhost:3000/admin/${id}` : "http://localhost:3000/admin")
 
         if (!res.ok) {
           throw new Error(res.statusText)
         };
 
-        const data = await res.json()
+        const data = await res.json();
+
         form.reset({
           name: data.name,
           slug: data.slug,
@@ -61,7 +86,7 @@ const { id } = useParams();
         console.error(err)
       }
     }
-    fetchProduct()
+    fetchProduct();
   }, [id, form])
 
   return (
@@ -78,7 +103,6 @@ const { id } = useParams();
                 <FieldLabel 
                     htmlFor="form-name"
                     className="text-primary font-bold"
-                    
                 >
                 Name
                 </FieldLabel>
@@ -200,7 +224,7 @@ const { id } = useParams();
                 </Field>
               )}
             />
-            <Button type="submit" className="p-2 bg-primary text-background cursor-pointer mt-4">Save</Button>
+            <Button type="submit" className="p-2 bg-primary text-background cursor-pointer mt-4">{isSubmitting ? <Loader2 className="size-4 animate-spin mx-auto" /> : "Save"}</Button>
         </FieldGroup>
     </form>
   )
