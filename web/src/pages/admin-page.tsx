@@ -7,42 +7,41 @@ import { Link } from "react-router";
 import { MoonLoader } from "react-spinners";
 import type { Product } from "../../../api/src/interfaces/admin";
 
+
 const AdminPage = () => {
-  const [products, setProducts] = useState<Array<Product>>([]);
-  const [isLoading, setIsLoading] = useState(true);
+    const [products, setProducts] = useState<Array<Product>>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/admin");
-        if (!res.ok) throw new Error(res.statusText);
-        setProducts(await res.json());
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchProducts();
-  }, []);
-
+useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/admin");
+      if (!res.ok) throw new Error(res.statusText);
+      setProducts(await res.json());
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  fetchProducts();
+}, []);
+    
   return (
     <div className="mx-8 md:mx-12 h-screen">
-      <h1 className="text-2xl text-primary font-bold my-4 text-center">
-        Admin Page
-      </h1>
-      {isLoading && (
-        <div className="flex justify-center items-center">
-          <MoonLoader
-            color="#a87932"
-            size={100}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        </div>
-      )}
+        <h1 className="text-2xl text-primary font-bold my-4 text-center">Admin Page</h1>
+        {isLoading &&
+            <div className="flex justify-center items-center">
+                <MoonLoader 
+                    color='#a87932'
+                    size={100}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+            </div>
+        }
 
-      {!isLoading && (
+        {!isLoading &&
         <>
             <section className="flex justify-center md:justify-end items-center space-x-4 my-6">
                 <p className="text-primary text-xl">Add new product </p>
@@ -61,11 +60,10 @@ const AdminPage = () => {
                 ))}
                 </div>
             </div>
-          </div>
         </>
-      )}
+        }    
     </div>
-  );
-};
+  )
+}
 
-export default AdminPage;
+export default AdminPage
