@@ -9,9 +9,8 @@ app.use(
   '*',
   cors({
     origin: 'http://localhost:5173',
-    allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests', "Content-Type"],
-    allowMethods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS'],
-    exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowHeaders: ["Content-Type"],
   })
 );
 

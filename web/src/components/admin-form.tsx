@@ -8,7 +8,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@base-ui/react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect } from "react"
+import { Loader2 } from "lucide-react"
+import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useNavigate, useParams } from "react-router"
 import { z } from "zod"
@@ -20,6 +21,7 @@ interface AdminFormProps {
 }
 
 const AdminForm = ({ title }: AdminFormProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate()
   const { id } = useParams();
   const isUpdate = Boolean(id);
@@ -63,6 +65,7 @@ type ProductFormOutput = {
   })
   
 async function onSubmit(data: ProductFormOutput) {
+  setIsSubmitting(true);
   try {
     const res = await fetch(
       isUpdate ? `http://localhost:3000/admin/${id}` : "http://localhost:3000/admin",
@@ -79,6 +82,7 @@ async function onSubmit(data: ProductFormOutput) {
     }
 
     await res.json()
+    setIsSubmitting(false);
     navigate("/admin")
   } catch (error) {
     console.error(error)
@@ -249,7 +253,19 @@ useEffect(() => {
                 </Field>
               )}
             />
-            <Button type="submit" className="p-2 bg-primary text-background cursor-pointer mt-4">Save</Button>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="p-2 bg-primary text-background cursor-pointer mt-4 flex items-center justify-center gap-2 disabled:opacity-60"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="size-4 animate-spin" />
+                </>
+              ) : (
+                "Save"
+              )}
+            </Button>            
         </FieldGroup>
     </form>
   )
