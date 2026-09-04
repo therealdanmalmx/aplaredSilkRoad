@@ -26,6 +26,10 @@ useEffect(() => {
   };
   fetchProducts();
 }, []);
+
+const handleDelete = (id: string) => {
+    setProducts((prev) => prev.filter((product) => product.id !== id))
+}
     
   return (
     <div className="mx-8 md:mx-12 h-screen">
@@ -51,12 +55,12 @@ useEffect(() => {
             </section>
             <div>
                 <div className="hidden md:block">
-                    <AdminProductTable products={products}  />
+                    <AdminProductTable products={products} onDeleted={handleDelete} />
                 </div>
 
                 <div className="flex flex-col gap-8 md:hidden">
                 {products.map((product) => (
-                    <AdminProductCard key={product.id} {...product} />
+                    <AdminProductCard key={product.id} product={product} onDeleted={handleDelete}/>
                 ))}
                 </div>
             </div>

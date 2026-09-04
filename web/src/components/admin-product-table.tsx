@@ -13,7 +13,7 @@ import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
 
-export function AdminProductTable({ products }: { products: Product[] }) {    
+export function AdminProductTable({ products, onDeleted }: { products: Product[], onDeleted: (id: string) => void }) {    
   return (
     <Table className="w-full mx-auto">
       <TableHeader>
@@ -38,7 +38,7 @@ export function AdminProductTable({ products }: { products: Product[] }) {
                 <Link to={`update-product/${product.id}`}>
                   <Button className="cursor-pointer"><LuPencil /></Button>
                 </Link>
-                <CustomDialog />
+                <CustomDialog productId={product.id} onDeleted={onDeleted}/>
                 </TableCell>
             </TableRow>
         ))}

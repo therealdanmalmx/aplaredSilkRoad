@@ -1,46 +1,74 @@
 import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 import { LuTrash2 } from "react-icons/lu";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
+import type { Product } from "../../../api/src/interfaces/admin";
 
 
-const CustomDialog = () => {
-    const navigate = useNavigate();
-    const { id } = useParams();
-    const deleteProduct = async (id: string) => {
-        if (!id) {
-            return;
-        }
+const CustomDialog = ({productId, onDeleted}: {productId: string, onDeleted: (id: string) => void}) => {
+  const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/admin/${id}`, {
-          method: "DELETE",
-        });
-    
-        if (!res.ok) {
-          throw new Error(`${res.status} ${res.statusText}`);
-        }
-
-        await res.json()
-        navigate("/admin")
-
-    
+        const res = await fetch("http://localhost:3000/admin");
+        if (!res.ok) throw new Error(res.statusText);
+        setProducts(await res.json());
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     };
+    fetchProducts();
+  }, []);
+  
+  async function handleDelete() {
+    await deleteProduct()
+    setOpen(false)
+  }
+  
+  const deleteProduct = async () => {
+    if (!productId) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`http://localhost:3000/admin/${productId}`, {
+        method: "DELETE",
+      });
+  
+      if (!res.ok) {
+        throw new Error(`${res.status} ${res.statusText}`);
+      }
+
+      onDeleted(productId);
+      navigate("/admin");
+  
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Silk T-Shirt	Premium silk t-shirt offering softness and breathability for everyday wear.	silk-shirt-975637	17.95kr	
+
     
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogTrigger render={<Button variant="outline" className="cursor-pointer hidden md:inline-flex ml-1"><LuTrash2 /></Button>} />
         <AlertDialogTrigger render={<Button  variant="outline" className="rounded-none inline-flex md:hidden text-white w-full cursor-pointer bg-primary"><LuTrash2 />Delete</Button>} />
         <AlertDialogContent>
@@ -52,9 +80,7 @@ const CustomDialog = () => {
             </AlertDialogHeader>
             <AlertDialogFooter>
             <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
-            <Link to={`/admin/delete-product/${id}`}>
-                <AlertDialogAction onClick={() => deleteProduct(id!)} variant="destructive" className="cursor-pointer text-background bg-destructive hover:text-destructive hover:bg-muted/50 hover:border-destructive">Delete</AlertDialogAction>
-            </Link>
+              <AlertDialogAction onClick={handleDelete} variant="destructive" className="cursor-pointer text-background bg-destructive hover:text-destructive hover:bg-muted/50 hover:border-destructive">Delete</AlertDialogAction>
             </AlertDialogFooter>
         </AlertDialogContent>
         </AlertDialog>  )

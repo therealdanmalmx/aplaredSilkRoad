@@ -12,7 +12,7 @@ import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
 
-export function AdminProductCard(product: Product) {
+export function AdminProductCard({ product, onDeleted }: { product: Product, onDeleted: (id: string) => void }) {
   return (
     <Card className="relative mx-auto w-full sm pt-0 h-96">
       <div className="relative aspect-video overflow-hidden">
@@ -30,7 +30,7 @@ export function AdminProductCard(product: Product) {
         <Link to={`update-product/${product.id}`}>
           <Button className="rounded-none w-73 cursor-pointer bg-primary"><LuPencil /> Update</Button>
         </Link>
-        <CustomDialog />
+        <CustomDialog productId={product.id} onDeleted={onDeleted}/>
       </CardFooter>
     </Card>
   );
