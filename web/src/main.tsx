@@ -7,6 +7,8 @@ import "./index.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />
-    <Toaster />
+    <Toaster toastOptions={{
+      duration: 3000,
+    }}/>
   </StrictMode>,
 );
