@@ -34,10 +34,10 @@ export default function ShoppingCartDrawer() {
       onOpenChange={setIsOpen}
     >
       <DrawerTrigger
-        render={<Button variant="ghost" className="cursor-pointer" />}
-      >
-        <LuShoppingCart className="text-primary " />
-      </DrawerTrigger>
+        render={
+          <LuShoppingCart className="text-primary text-2xl cursor-pointer" />
+        }
+      ></DrawerTrigger>
       <DrawerContent className="h-full">
         <DrawerHeader>
           <DrawerTitle className="text-primary">Shopping cart</DrawerTitle>
