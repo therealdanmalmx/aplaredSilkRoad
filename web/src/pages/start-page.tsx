@@ -10,12 +10,12 @@ export default function StartPage() {
     const fetchProducts = async () => {
       const res = await fetch("http://localhost:3000/admin");
       const data = await res.json();
-      console.log({ data });
+
       setProducts(data);
     };
     fetchProducts();
   }, []);
-  console.log(products);
+
   return (
     <section>
       <Hero imgSource={heroImg} />
