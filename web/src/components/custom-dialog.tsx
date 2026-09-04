@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { LuTrash2 } from "react-icons/lu";
 import { useNavigate } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
@@ -58,8 +59,10 @@ const CustomDialog = ({productId, onDeleted}: {productId: string, onDeleted: (id
 
       onDeleted(productId);
       navigate("/admin");
-  
+      toast.success(`${products.find((p) => p.id === productId)?.name} has been deleted.`)
+      
     } catch (err) {
+      toast.error(`${products.find((p) => p.id === productId)?.name} could not be deleted. Please try again.`)
       console.error(err);
     }
   };
