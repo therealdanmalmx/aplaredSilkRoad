@@ -6,7 +6,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useState } from "react";
-import { LuMenu } from "react-icons/lu";
+import { LuCircleArrowRight, LuMenu } from "react-icons/lu";
 import { Link } from "react-router";
 
 export default function MenuDrawer() {
@@ -32,12 +32,13 @@ export default function MenuDrawer() {
           {routes.map((r) => {
             return (
               <Link
+                className="flex items-center justify-between w-full h-16 px-4 text-xl text-neutral rounded-none cursor-pointer hover:text-secondary-foreground hover:bg-muted-foreground duration-200"
                 key={r.route}
                 to={r.route}
                 onClick={() => setIsOpen(false)}
-                className="flex items-center w-full h-16 px-4 text-xl text-neutral cursor-pointer hover:text-secondary-foreground hover:bg-muted-foreground duration-200 rounded-md"
               >
                 {r.title}
+                <LuCircleArrowRight className="text-2xl" />
               </Link>
             );
           })}
