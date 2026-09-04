@@ -19,7 +19,8 @@ export default function StartPage() {
   return (
     <section>
       <Hero imgSource={heroImg} />
-      <div className="flex items-center gap-2">
+
+      <div className="mx-auto grid w-full max-w-screen-2xl grid-cols-1 gap-5 px-4 py-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         {products.map((product) => {
           return <ProductCard {...product}></ProductCard>;
         })}

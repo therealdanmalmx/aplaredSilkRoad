@@ -1,4 +1,3 @@
-
 import { AdminProductCard } from "@/components/admin-product-card";
 import { AdminProductTable } from "@/components/admin-product-table";
 import { useEffect, useState } from "react";
