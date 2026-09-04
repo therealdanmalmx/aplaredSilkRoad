@@ -7,56 +7,117 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@base-ui/react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { useParams } from "react-router-dom"
-import type { Product } from "../../../api/src/interfaces/admin"
+import { useNavigate, useParams } from "react-router"
+import { z } from "zod"
+import { creatAdminProductSchema } from "../../../api/src/schemas/adminSchemas"
+
 
 interface AdminFormProps {
     title: string,
 }
 
 const AdminForm = ({ title }: AdminFormProps) => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [product, setProduct] = useState<Product>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate()
+  const { id } = useParams();
+  const isUpdate = Boolean(id);
 
-  const form = useForm<Product>({
+  const productFormSchema = creatAdminProductSchema.extend({
+  price: z
+    .string()
+    .trim()
+    .min(1, "Price is required")
+    .regex(/^\d+([.,]\d{1,2})?$/, "Enter a price like 19.99")
+    .transform((v) => Number(v.replace(",", "."))),
+});
+
+type ProductFormInput = {
+  name: string
+  slug: string
+  description: string
+  imageURL: string
+  price: string
+}
+
+type ProductFormOutput = {
+  name: string
+  slug: string
+  description: string
+  imageURL: string
+  price: number
+}
+
+
+  const form = useForm<ProductFormInput, unknown, ProductFormOutput>({
+    resolver: zodResolver(productFormSchema),
     defaultValues: {
       name: "",
       slug: "",
       description: "",
       imageURL: "",
-      price: undefined
+      price: ""
     },
     mode: "onSubmit",
   })
   
-  function onSubmit(data: Product) {
-    // Do something with the form values.
-    console.log(data)
-    
-  }
-  
-  const params = useParams();
-  
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-      const res = await fetch(`http://localhost:3000/admin`);
-      if (!res.ok){ 
-        throw new Error(res.statusText);
-      };
-      setProducts(await res.json());
+async function onSubmit(data: ProductFormOutput) {
+  setIsSubmitting(true);
+  try {
+    const res = await fetch(
+      isUpdate ? `http://localhost:3000/admin/${id}` : "http://localhost:3000/admin",
+      {
+        method: isUpdate ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, price: Math.round(data.price * 100) }),
+      },
+    )
 
-      setProduct(products.find((product) => product.id === params.id));
-    
-      console.log({product});
-    } catch (err) {
-      console.error(err);
+    if (!res.ok) {
+      const body = await res.text()
+      throw new Error(body || res.statusText)
     }
-  };
-  fetchProduct();
-}, [form]);
+
+    await res.json()
+    setIsSubmitting(false);
+    navigate("/admin")
+  } catch (error) {
+    console.error(error)
+    form.setError("root", { message: "Could not save the product. Please try again." })
+  }
+}
+    
+useEffect(() => {
+  if (!id) {
+    return;
+  }
+
+  const fetchProduct = async () => {
+    try {
+      const res = await fetch(`http://localhost:3000/admin/${id}`)
+      if (!res.ok) {
+        throw new Error(res.statusText)
+      }
+
+      const data = await res.json()
+
+      form.reset({
+        name: data.name,
+        slug: data.slug,
+        description: data.description,
+        imageURL: data.imageURL,
+        price: String(data.price / 100),
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  fetchProduct()
+}, [id, form])
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -82,7 +143,6 @@ const AdminForm = ({ title }: AdminFormProps) => {
                     aria-invalid={fieldState.invalid}
                     autoComplete="off"
                     className="border-t-0 border-l-0 border-r-0 rounded-none p-2 bg-zinc-100 border-b border-primary"
-                    value={location.pathname === `/admin/update-product` ? product?.name : ""}
                     />
             
                     <FieldError errors={[fieldState.error]} />
@@ -193,7 +253,19 @@ const AdminForm = ({ title }: AdminFormProps) => {
                 </Field>
               )}
             />
-            <Button type="submit" className="p-2 bg-primary text-background cursor-pointer mt-4">Save</Button>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="p-2 bg-primary text-background cursor-pointer mt-4 flex items-center justify-center gap-2 disabled:opacity-60"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="size-4 animate-spin" />
+                </>
+              ) : (
+                "Save"
+              )}
+            </Button>            
         </FieldGroup>
     </form>
   )
