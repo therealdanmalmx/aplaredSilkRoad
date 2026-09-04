@@ -31,7 +31,7 @@ app.post("/", sValidator("json", creatAdminProductSchema), async (c) => {
 
   const product = await db.orm.public.Product.create(data)
   return c.json(product, 201)
-})
+});
 
 
 app.put("/:id", sValidator("json", updateAdminProductSchema), async (c) => {
