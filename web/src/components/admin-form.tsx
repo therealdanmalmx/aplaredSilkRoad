@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import { useNavigate, useParams } from "react-router"
 import { z } from "zod"
 import { creatAdminProductSchema } from "../../../api/src/schemas/adminSchemas"
@@ -84,8 +85,10 @@ async function onSubmit(data: ProductFormOutput) {
     await res.json()
     setIsSubmitting(false);
     navigate("/admin")
+    toast.success(`${data.name} has been ${isUpdate ? "updated" : "added"}.`)
   } catch (error) {
     console.error(error)
+    toast.success(`${data.name} could not be ${isUpdate ? "updated" : "saved"}. Please try again.`)
     form.setError("root", { message: "Could not save the product. Please try again." })
   }
 }

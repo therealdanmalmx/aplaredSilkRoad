@@ -9,9 +9,9 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
-    <Toaster />
+    <App />
+    <Toaster toastOptions={{
+      duration: 3000,
+    }}/>
   </StrictMode>,
 );
