@@ -8,11 +8,9 @@ const app = new Hono()
 app.use(
   '*',
   cors({
-    allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests', 'Content-Type'],
-    allowMethods: ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE'],
-    exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
-    maxAge: 600,
-    credentials: true,
+    origin: 'http://localhost:5173',
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowHeaders: ["Content-Type"],
   })
 );
 

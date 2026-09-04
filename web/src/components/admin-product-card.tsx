@@ -28,7 +28,9 @@ export function AdminProductCard({ product, onDeleted }: { product: Product, onD
       </CardHeader>
       <CardFooter className="flex flex-col space-y-2">
         <Link to={`update-product/${product.id}`}>
-          <Button className="rounded-none w-73 cursor-pointer bg-primary"><LuPencil /> Update</Button>
+          <Button className="rounded-none w-73 cursor-pointer bg-primary">
+            <LuPencil /> Update
+          </Button>
         </Link>
         <CustomDialog productId={product.id} onDeleted={onDeleted}/>
       </CardFooter>
