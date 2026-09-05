@@ -29,7 +29,9 @@ const ProductPage = () => {
   const product = products.find((p) => p.slug === slug);
 
   const totalPrice = () => {
-    if (!product) return 0;
+    if (!product) {
+      return;
+    };
     return Number(quantity * Number(product.price/100)).toFixed(2);
   }
 
@@ -37,15 +39,15 @@ const ProductPage = () => {
   if (!product) return null;
 
   return (
-    <article className='m-4 grid md:flex md:flex-row'>
+    <article className='m-4 grid md:flex md:flex-row md:w-full'>
       <section>
         <img className="object-cover w-125 h-96 rounded-xl" src={product.imageURL} alt={product.name} />
       </section>
-      <section className="md:ml-12 mt-8 md:mt-0 flex flex-col gap-4">
+      <section className="md:ml-12 mt-8 md:mt-0 flex flex-col items-stretch gap-2 w-1/3">
         <h1 className="text-4xl italic text-black">{product.name}</h1>
         <h3 className='text-primary text-2xl'>{product.price/100} kr</h3>
         <p className='text-xl'>{product.description}</p>
-        <section className='flex gap-4'>
+        <section className='flex gap-4 mt-8'>
           <div className='w-24 h-10 p-4 border border-chart-5 flex justify-between items-center rounded-md'>
             <p className="cursor-pointer" onClick={decreaseQuantity}><FaMinus size={10}/></p>
             <p>{quantity}</p>
