@@ -3,6 +3,7 @@ import MainLayout from "./layouts/main-layout";
 import AdminPage from "./pages/admin-page";
 import CheckoutPage from "./pages/checkout-page";
 import NewAdminProductPage from "./pages/new-admin-product-page";
+import ProductPage from "./pages/product-page";
 import StartPage from "./pages/start-page";
 import UpdateAdminProduct from "./pages/update-admin-product";
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="update-product/:id" element={<UpdateAdminProduct />} />
             <Route path="delete-product/:id" />
           </Route>
+          <Route path="/product/:slug" element={<ProductPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
         </Route>
       </Routes>
