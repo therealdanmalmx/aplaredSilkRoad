@@ -1,49 +1,57 @@
-import { getProducts } from '@/api/products';
-import { useEffect, useState } from 'react';
+import { getProduct } from '@/api/product';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { useParams } from 'react-router';
-import type { Product } from '../../../api/src/interfaces/admin';
-
+import { MoonLoader } from 'react-spinners';
 
 const ProductPage = () => {
-  const [products, setProducts] = useState<Product[]>([]);
   const [quantity, setQuantity] = useState(1);
-  const { slug } = useParams();
+  const { id } = useParams();
 
-  useEffect(() => {
-    getProducts().then(setProducts);
-  }, []);
+  const { data: product, isPending, error, status, fetchStatus } = useQuery({
+    queryKey: ["product", id],
+    queryFn: async () => await getProduct(id ?? ""),
+    enabled: !!id,
+  });
+
+  if (error) {
+    console.error(error);
+    return <p>Something went wrong! Try again.</p>
+  }
+
+  if (isPending) {
+    return (
+      <div className="flex justify-center items-center mt-24">
+        <MoonLoader 
+          color='#a87932'
+          size={100}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          />
+      </div>)
+  }
 
   const increaseQuantity = () => {
     setQuantity((prev) => prev + 1)
 
   }
   const decreaseQuantity = () => {
-    setQuantity((prev) => prev - 1)
-    if (quantity <= 1)
-    {
-      setQuantity(1)
-    }
+    setQuantity(prev => Math.max(1, prev - 1))
   }
   
-  const product = products.find((p) => p.slug === slug);
+  // const product = products.find((p: Product) => p.slug === slug);
 
   const totalPrice = () => {
-    if (!product) {
-      return;
-    };
     return Number(quantity * Number(product.price/100)).toFixed(2);
   }
-
-
-  if (!product) return null;
 
   return (
     <article className='m-4 grid md:flex md:flex-row md:w-full'>
       <section>
         <img className="object-cover w-125 h-96 rounded-xl" src={product.imageURL} alt={product.name} />
       </section>
-      <section className="md:ml-12 mt-8 md:mt-0 flex flex-col items-stretch gap-2 w-1/3">
+      <section className="md:ml-12 mt-8 md:mt-0 flex flex-col items-stretch gap-2 md:w-1/3">
         <h1 className="text-4xl italic text-black">{product.name}</h1>
         <h3 className='text-primary text-2xl'>{product.price/100} kr</h3>
         <p className='text-xl'>{product.description}</p>
