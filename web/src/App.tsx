@@ -19,7 +19,7 @@ function App() {
             <Route path="update-product/:id" element={<UpdateAdminProduct />} />
             <Route path="delete-product/:id" />
           </Route>
-          <Route path="/product/:slug" element={<ProductPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
         </Route>
       </Routes>
