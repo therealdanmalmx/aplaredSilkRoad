@@ -47,31 +47,34 @@ const ProductPage = () => {
   }
 
   return (
-    <article className='m-4 grid md:flex md:flex-row md:w-full'>
+    <article className='m-4 grid md:flex md:flex-row md:w-ful h-full'>
       <section>
         <img className="object-cover w-125 h-96 rounded-xl" src={product.imageURL} alt={product.name} />
       </section>
-      <section className="md:ml-12 mt-8 md:mt-0 flex flex-col items-stretch gap-2 md:w-1/3">
-        <h1 className="text-4xl italic text-black">{product.name}</h1>
-        <h3 className='text-primary text-2xl'>{product.price/100} kr</h3>
-        <p className='text-xl'>{product.description}</p>
-        <section className='flex gap-4 mt-8'>
-          <div className='w-24 h-10 p-4 border border-chart-5 flex justify-between items-center rounded-md'>
-            <p className="cursor-pointer" onClick={decreaseQuantity}><FaMinus size={10}/></p>
-            <p>{quantity}</p>
-            <p className="cursor-pointer text-sm" onClick={increaseQuantity}><FaPlus size={10} /></p>
-          </div>
-          <div className='cursor-pointer w-full h-10 p-4 border bg-primary text-slate-100 flex justify-between items-center rounded-md'>
-            <div className='flex items-center gap-4 w-2/3'>
-              <FaPlus />
-            <span>Add to cart </span>
-            </div>
-            <div className='w-1/3 text-right'>
-              {totalPrice()}kr
-            </div>
-          </div>
+      <div className='flex flex-col justify-between md:h-96 md:ml-12 mt-8 md:mt-0 md:w-1/3'>
+        <section className='flex flex-col gap-4'>
+          <h1 className="text-4xl italic text-black">{product.name}</h1>
+          <h3 className='text-primary text-2xl'>{product.price/100} kr</h3>
+          <p className='text-xl'>{product.description}</p>
         </section>
-      </section>
+          <section className='flex justify-between gap-4 mt-20 md:mt-0'>
+            <div className='w-24 h-10 p-4 border border-chart-5 flex justify-between items-center rounded-md'>
+              <p className="cursor-pointer" onClick={decreaseQuantity}><FaMinus size={10}/></p>
+              <p>{quantity}</p>
+              <p className="cursor-pointer text-sm" onClick={increaseQuantity}><FaPlus size={10} /></p>
+            </div>
+            <div className='cursor-pointer w-full h-10 p-4 border bg-primary text-slate-100 flex justify-between items-center rounded-md'>
+              <div className='flex items-center gap-4 w-2/3'>
+                <FaPlus />
+              <span>Add to cart </span>
+              </div>
+              <div className='w-1/3 text-right'>
+                {totalPrice()}kr
+              </div>
+            </div>
+          </section>
+
+      </div>
     </article>
 
   )
