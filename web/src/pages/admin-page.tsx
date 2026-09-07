@@ -34,7 +34,7 @@ const handleDelete = (id: string) => {
     <div className="mx-8 md:mx-12 h-screen">
         <h1 className="text-2xl text-primary font-bold my-4 text-center">Admin Page</h1>
         {isLoading &&
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center mt-24">
                 <MoonLoader 
                     color='#a87932'
                     size={100}
