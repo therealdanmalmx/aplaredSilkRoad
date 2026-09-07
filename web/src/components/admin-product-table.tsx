@@ -31,10 +31,10 @@ export function AdminProductTable({ products, onDeleted }: { products: Product[]
             <TableRow key={product.id}>
                 <TableCell><img src={product.imageURL} alt={product.name} className="size-24 object-cover"/></TableCell>
                 <TableCell className="font-medium">{product.name}</TableCell>
-                <TableCell>{product.description}</TableCell>
+                <TableCell className="w-125 text-wrap whitespace-normal">{product.description}</TableCell>
                 <TableCell>{product.slug}</TableCell>
                 <TableCell>{product.price/100}kr</TableCell>
-                <TableCell className="text-right p-0">
+                <TableCell className="text-right pr-2">
                 <Link to={`update-product/${product.id}`}>
                   <Button className="cursor-pointer"><LuPencil /></Button>
                 </Link>
