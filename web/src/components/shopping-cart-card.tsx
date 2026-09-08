@@ -1,12 +1,13 @@
 import { getProduct } from "@/api/product";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useCartStorage } from "@/hooks/useCartStorage";
 import type { CartItem } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { LuTrash2 } from "react-icons/lu";
 import type { Product } from "../../../api/src/interfaces/admin";
-import { Skeleton } from "./ui/skeleton";
 
 interface Props {
   cartItem: CartItem;
@@ -14,7 +15,7 @@ interface Props {
 
 export default function ShoppingCartCard(props: Props) {
   const isMobile = useIsMobile();
-  const [amount, setAmount] = useState(props.cartItem.amount);
+  const { addItem, deleteItem } = useCartStorage();
   const [productInfo, setProductInfo] = useState<Product>();
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function ShoppingCartCard(props: Props) {
     };
 
     getProductInfo();
-  }, []);
+  }, [props.cartItem.id]);
 
   return (
     <article className="flex gap-1 mb-2 p-2 items-center justify-between">
@@ -49,22 +50,26 @@ export default function ShoppingCartCard(props: Props) {
           <Input
             type="number"
             min={1}
-            max={99}
-            value={amount}
+            value={props.cartItem.amount}
             onChange={(e) => {
-              const value = Number(e.target.value);
-              setAmount(Math.min(99, Math.max(1, value)));
+              const value = Math.max(1, Number(e.target.value));
+              const diff = value - props.cartItem.amount;
+
+              addItem({
+                id: props.cartItem.id,
+                amount: diff,
+              });
             }}
           />
         </div>
       </div>
       <div className="flex flex-col items-end justify-between self-stretch">
         {productInfo ? (
-          <p>á {productInfo?.price} kr</p>
+          <p className="text-nowrap">á {productInfo?.price} kr</p>
         ) : (
           <Skeleton className="h-4 w-12.5" />
         )}
-        <Button variant="ghost">
+        <Button variant="ghost" onClick={() => deleteItem(props.cartItem.id)}>
           <LuTrash2 />
         </Button>
       </div>
