@@ -43,9 +43,7 @@ export default function ShoppingCartDrawer() {
           <DrawerTitle className="text-primary">Shopping cart</DrawerTitle>
           <DrawerDescription>Manage your items</DrawerDescription>
         </DrawerHeader>
-        <div className="scroll-fade-none overflow-y-auto">
-          <ShoppingCart />
-        </div>
+        <ShoppingCart scrollabe={true} />
         <DrawerFooter>
           <Button onClick={toCheckoutButtonHandler}>To Checkout</Button>
           <DrawerClose render={<Button variant="outline" />}>
