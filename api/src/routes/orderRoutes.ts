@@ -5,6 +5,22 @@ import { createOrderSchema } from "../schemas/orderSchema";
 
 const app = new Hono();
 
+app.get("/:id", async (c) => {
+  const id = c.req.param("id");
+
+  const order = await db.orm.public.Order.first({ id });
+
+  if (!order) {
+    return c.json({ error: "Could not find order." }, 404);
+  }
+
+  const orderItems = await db.orm.public.OrderItem.where({
+    orderId: order.id,
+  }).all();
+
+  return c.json({ order, orderItems });
+});
+
 app.post("/", sValidator("json", createOrderSchema), async (c) => {
   const { customer, items } = c.req.valid("json");
 
