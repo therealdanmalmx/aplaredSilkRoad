@@ -6,7 +6,6 @@ import { createOrderSchema } from "../schemas/orderSchema";
 const app = new Hono();
 
 app.post("/", sValidator("json", createOrderSchema), async (c) => {
-  //   const data = c.req.valid("json");
   const { customer, items } = c.req.valid("json");
 
   const productIds = items.map((i) => i.productId);
