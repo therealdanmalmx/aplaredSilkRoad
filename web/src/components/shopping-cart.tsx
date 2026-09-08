@@ -25,7 +25,6 @@ export default function ShoppingCart(props: Props) {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      await new Promise((r) => setTimeout(r, 1000));
       const products: Promise<Product>[] = [];
       cart.forEach((ci) => products.push(getProduct(ci.id)));
 
