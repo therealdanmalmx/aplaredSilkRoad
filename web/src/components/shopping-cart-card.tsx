@@ -1,29 +1,51 @@
+import { getProduct } from "@/api/product";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { ShoppingCartItem } from "@/data/shopping-cart-item";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useState } from "react";
+import type { CartItem } from "@/lib/types";
+import { useEffect, useState } from "react";
 import { LuTrash2 } from "react-icons/lu";
+import type { Product } from "../../../api/src/interfaces/admin";
+import { Skeleton } from "./ui/skeleton";
 
 interface Props {
-  cartItem: ShoppingCartItem;
+  cartItem: CartItem;
 }
 
 export default function ShoppingCartCard(props: Props) {
   const isMobile = useIsMobile();
   const [amount, setAmount] = useState(props.cartItem.amount);
+  const [productInfo, setProductInfo] = useState<Product>();
+
+  useEffect(() => {
+    const getProductInfo = async () => {
+      const product = await getProduct(props.cartItem.id);
+      setProductInfo(product);
+    };
+
+    getProductInfo();
+  }, []);
 
   return (
     <article className="flex gap-1 mb-2 p-2 items-center justify-between">
-      <div className="flex gap-1 items-center">
-        <img
-          src={`${props.cartItem.imageURL}`}
-          alt={`Product image for: ${props.cartItem.name}`}
-          className={(isMobile ? "size-10" : "size-20") + " rounded-full"}
-        />
-        <div className="h-full text-left">
-          <h3>{props.cartItem.name}</h3>
-          <p>á {props.cartItem.price}</p>
+      <div className="flex gap-1 items-center self-stretch">
+        {productInfo ? (
+          <img
+            src={`${productInfo.imageURL}`}
+            alt={`Product image for: ${productInfo.name}`}
+            className={(isMobile ? "size-10" : "size-20") + " rounded-full"}
+          />
+        ) : (
+          <Skeleton
+            className={(isMobile ? "size-10" : "size-20") + " rounded-full"}
+          />
+        )}
+        <div className="h-full text-left flex flex-col justify-between">
+          {productInfo ? (
+            <h3>{productInfo.name}</h3>
+          ) : (
+            <Skeleton className="h-4 w-25" />
+          )}
           <Input
             type="number"
             min={1}
@@ -34,12 +56,18 @@ export default function ShoppingCartCard(props: Props) {
               setAmount(Math.min(99, Math.max(1, value)));
             }}
           />
-          <p>Item Total: {props.cartItem.price * props.cartItem.amount}</p>
         </div>
       </div>
-      <Button variant="ghost">
-        <LuTrash2 />
-      </Button>
+      <div className="flex flex-col items-end justify-between self-stretch">
+        {productInfo ? (
+          <p>á {productInfo?.price} kr</p>
+        ) : (
+          <Skeleton className="h-4 w-12.5" />
+        )}
+        <Button variant="ghost">
+          <LuTrash2 />
+        </Button>
+      </div>
     </article>
   );
 }
