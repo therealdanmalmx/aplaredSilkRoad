@@ -1,39 +1,28 @@
-import { getProduct } from "@/api/product";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCartStorage } from "@/hooks/useCartStorage";
 import type { CartItem } from "@/lib/types";
-import { useEffect, useState } from "react";
 import { LuTrash2 } from "react-icons/lu";
 import type { Product } from "../../../api/src/interfaces/admin";
 
 interface Props {
   cartItem: CartItem;
+  product?: Product;
 }
 
 export default function ShoppingCartCard(props: Props) {
   const isMobile = useIsMobile();
   const { addItem, deleteItem } = useCartStorage();
-  const [productInfo, setProductInfo] = useState<Product>();
-
-  useEffect(() => {
-    const getProductInfo = async () => {
-      const product = await getProduct(props.cartItem.id);
-      setProductInfo(product);
-    };
-
-    getProductInfo();
-  }, [props.cartItem.id]);
 
   return (
     <article className="flex gap-1 mb-2 p-2 items-center justify-between">
       <div className="flex gap-1 items-center self-stretch">
-        {productInfo ? (
+        {props.product ? (
           <img
-            src={`${productInfo.imageURL}`}
-            alt={`Product image for: ${productInfo.name}`}
+            src={`${props.product.imageURL}`}
+            alt={`Product image for: ${props.product.name}`}
             className={(isMobile ? "size-10" : "size-20") + " rounded-full"}
           />
         ) : (
@@ -42,36 +31,49 @@ export default function ShoppingCartCard(props: Props) {
           />
         )}
         <div className="h-full text-left flex flex-col justify-between">
-          {productInfo ? (
-            <h3>{productInfo.name}</h3>
+          {props.product ? (
+            <h3>{props.product.name}</h3>
           ) : (
             <Skeleton className="h-4 w-25" />
           )}
-          <Input
-            type="number"
-            min={1}
-            value={props.cartItem.amount}
-            onChange={(e) => {
-              const value = Math.max(1, Number(e.target.value));
-              const diff = value - props.cartItem.amount;
+          {props.product ? (
+            <Input
+              type="number"
+              min={1}
+              value={props.cartItem.amount}
+              onChange={(e) => {
+                const value = Math.max(1, Number(e.target.value));
+                const diff = value - props.cartItem.amount;
 
-              addItem({
-                id: props.cartItem.id,
-                amount: diff,
-              });
-            }}
-          />
+                addItem({
+                  id: props.cartItem.id,
+                  amount: diff,
+                });
+              }}
+            />
+          ) : (
+            <Skeleton className="h-4 w-25" />
+          )}
         </div>
       </div>
       <div className="flex flex-col items-end justify-between self-stretch">
-        {productInfo ? (
-          <p className="text-nowrap">á {productInfo?.price} kr</p>
+        {props.product ? (
+          <div>
+            <p className="text-nowrap">á {props.product.price} kr</p>
+            <p className="text-nowrap">
+              {props.product.price * props.cartItem.amount} kr
+            </p>
+          </div>
         ) : (
           <Skeleton className="h-4 w-12.5" />
         )}
-        <Button variant="ghost" onClick={() => deleteItem(props.cartItem.id)}>
-          <LuTrash2 />
-        </Button>
+        {props.product ? (
+          <Button variant="ghost" onClick={() => deleteItem(props.cartItem.id)}>
+            <LuTrash2 />
+          </Button>
+        ) : (
+          <Skeleton className="size-6" />
+        )}
       </div>
     </article>
   );
