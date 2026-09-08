@@ -8,28 +8,28 @@ const app = new Hono();
 app.post("/", sValidator("json", createOrderSchema), async (c) => {
   const { customer, items } = c.req.valid("json");
 
-  const productIds = items.map((i) => i.productId);
+  const productIds = items.map((item) => item.productId);
 
   const products = await db.orm.public.Product.where((p) =>
     p.id.in(productIds),
   ).all();
 
-  const orderItems = items.map((i) => {
-    const product = products.find((p) => p.id === i.productId);
+  const orderItems = items.map((item) => {
+    const product = products.find((p) => p.id === item.productId);
 
     if (!product) {
-      throw new Error(`Could not find product: ${i.productId}`);
+      throw new Error(`Could not find product: ${item.productId}`);
     }
 
     return {
       productId: product.id,
-      quantity: i.quantity,
+      quantity: item.quantity,
       unitPrice: product.price,
     };
   });
 
   const total = orderItems.reduce(
-    (sum, i) => sum + i.unitPrice * i.quantity,
+    (sum, item) => sum + item.unitPrice * item.quantity,
     0,
   );
 
