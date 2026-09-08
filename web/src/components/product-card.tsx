@@ -22,13 +22,13 @@ export default function ProductCard(product: Product) {
   }
 
   return (
-    <Card className=" w-full pt-0">
+    <Card className="w-full pt-0 lg:hover:scale-105 lg:transition-all">
       <Link key={product.id} to={`/product/${product.id}`}>
-        <div className="aspect-video overflow-hidden">
+        <div className="aspect-video ">
           <img
             src={product.imageURL}
             alt={product.name}
-            className="h-50 w-full object-cover"
+            className="h-72 w-full object-cover"
           />
         </div>
 
@@ -40,13 +40,15 @@ export default function ProductCard(product: Product) {
           </CardDescription>
         </CardHeader>
       </Link>
-      <CardFooter className="grid items-center h-32">
-        <Button>
-          <Link to={`product/${product.id}`}>View</Link>
-        </Button>
+      <CardFooter className="grid items-center h-auto gap-4">
+        {/* {useIsMobile() && (
+          <Button>
+            <Link to={`product/${product.id}`}>View</Link>
+          </Button>
+        )} */}
         <div className="flex justify-between w-full gap-4">
           <Button
-            className="flex flex-1 max-w-24 sm:max-w-svh cursor-pointer"
+            className="flex flex-1 cursor-pointer"
             onClick={() => AddItemToCart()}
           >
             Add to cart
@@ -58,13 +60,6 @@ export default function ProductCard(product: Product) {
             value={amount}
             onChange={(e) => setAmount(Number(e.target.value))}
           />
-          {/* <input
-            className="max-w-10"
-            type="number"
-            min={1}
-            value={amount}
-            onChange={(e) => setAmount(Number(e.target.value))}
-          /> */}
         </div>
       </CardFooter>
     </Card>
