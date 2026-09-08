@@ -18,7 +18,7 @@ export default function ShoppingCartCard(props: Props) {
 
   return (
     <article className="flex gap-1 mb-2 p-2 items-center justify-between">
-      <div className="flex gap-1 items-center self-stretch">
+      <div className="flex gap-1 min-w-0 items-center self-stretch">
         {props.product ? (
           <img
             src={`${props.product.imageURL}`}
@@ -30,9 +30,9 @@ export default function ShoppingCartCard(props: Props) {
             className={(isMobile ? "size-10" : "size-20") + " rounded-full"}
           />
         )}
-        <div className="h-full text-left flex flex-col justify-between">
+        <div className="h-full text-left flex flex-col justify-between min-w-0">
           {props.product ? (
-            <h3>{props.product.name}</h3>
+            <h3 className="truncate">{props.product.name}</h3>
           ) : (
             <Skeleton className="h-4 w-25" />
           )}
