@@ -68,7 +68,11 @@ export default function ShoppingCartCard(props: Props) {
           <Skeleton className="h-4 w-12.5" />
         )}
         {props.product ? (
-          <Button variant="ghost" onClick={() => deleteItem(props.cartItem.id)}>
+          <Button
+            variant="ghost"
+            className="cursor-pointer"
+            onClick={() => deleteItem(props.cartItem.id)}
+          >
             <LuTrash2 />
           </Button>
         ) : (
