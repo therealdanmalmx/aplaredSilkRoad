@@ -1,7 +1,7 @@
 import { sValidator } from "@hono/standard-validator";
 import { Hono } from "hono";
+import { createOrderSchema } from "../../../shared/schemas/orderSchema";
 import { db } from "../prisma/db";
-import { createOrderSchema } from "../schemas/orderSchema";
 
 const app = new Hono();
 
@@ -72,6 +72,7 @@ app.post("/", sValidator("json", createOrderSchema), async (c) => {
 
     return order;
   });
+
   return c.json({ ...result, items: orderItems }, 201);
 });
 
