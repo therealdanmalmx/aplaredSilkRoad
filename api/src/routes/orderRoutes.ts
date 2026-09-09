@@ -54,10 +54,7 @@ app.post("/", sValidator("json", createOrderSchema), async (c) => {
       firstName: customer.firstName,
       lastName: customer.lastName,
       phone: customer.phone,
-      city: customer.address.city,
-      country: customer.address.country,
-      street: customer.address.street,
-      zipCode: customer.address.zipCode,
+      ...customer.address,
       total,
     });
 
