@@ -8,11 +8,13 @@ export function useCartStorage() {
   function addItem(product: CartItem) {
     setCart((current) => {
       const exists = current.find((p) => p.id === product.id);
+
       if (exists) {
         return current.map((p) =>
           p.id === product.id ? { ...p, amount: p.amount + product.amount } : p,
         );
       }
+
       return [...current, product];
     });
   }
