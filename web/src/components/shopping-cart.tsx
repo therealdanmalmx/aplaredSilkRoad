@@ -1,21 +1,55 @@
-import { mockedCartItems } from "@/data/shopping-cart-item";
+import { getProduct } from "@/api/product";
+import { useCartStorage } from "@/hooks/useCartStorage";
+import { useEffect, useState } from "react";
+import type { Product } from "../../../api/src/interfaces/admin";
 import ShoppingCartCard from "./shopping-cart-card";
 
-export default function ShoppingCart() {
-  const cartItems = mockedCartItems;
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.amount,
-    0,
-  );
+interface Props {
+  scrollabe?: boolean;
+}
+
+export default function ShoppingCart(props: Props) {
+  const { cart } = useCartStorage();
+
+  const [products, setProducts] = useState<Product[]>();
+
+  const subTotal = cart.reduce((total, ci) => {
+    const product = products?.find((p) => p.id == ci.id);
+    if (!product) return 0;
+
+    return total + product.price * ci.amount;
+  }, 0);
+
+  const shipping = 0;
+  const total = subTotal + shipping;
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const products: Promise<Product>[] = [];
+      cart.forEach((ci) => products.push(getProduct(ci.id)));
+
+      setProducts(await Promise.all(products));
+    };
+
+    fetchProducts();
+  }, [cart]);
 
   return (
-    <section>
-      <div>
-        {cartItems.map((ci) => (
-          <ShoppingCartCard cartItem={ci} key={ci.id} />
-        ))}
+    <section className="flex flex-col h-full min-h-0">
+      <div className={props.scrollabe ? "min-h-0 flex-1 overflow-y-auto" : ""}>
+        {cart.map((ci) => {
+          const product = products?.find((p) => p.id === ci.id);
+
+          return (
+            <ShoppingCartCard cartItem={ci} product={product} key={ci.id} />
+          );
+        })}
       </div>
-      <p>Total: {total}</p>
+      <div className="shrink-0 border-t p-4">
+        <p>Subtotal: {subTotal} kr</p>
+        <p>Shipping: {shipping}</p>
+        <p>Total: {total}</p>
+      </div>
     </section>
   );
 }
