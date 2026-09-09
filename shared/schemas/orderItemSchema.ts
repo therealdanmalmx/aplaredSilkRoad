@@ -8,3 +8,5 @@ export const createOrderItemSchema = z.object({
 export const orderItemSchema = createOrderItemSchema.extend({
   unitPrice: z.number(),
 });
+
+export type OrderItem = z.infer<typeof orderItemSchema>;

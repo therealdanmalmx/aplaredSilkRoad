@@ -11,3 +11,6 @@ export const orderSchema = createOrderSchema.extend({
   id: uuid(),
   createdAt: z.iso.datetime(),
 });
+
+export type CreateOrder = z.infer<typeof createOrderSchema>;
+export type Order = z.infer<typeof orderSchema>;
