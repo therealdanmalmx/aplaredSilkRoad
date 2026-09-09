@@ -28,7 +28,7 @@ export default function ShoppingCartDrawer() {
 
   return (
     <Drawer
-      swipeDirection="right"
+      swipeDirection={isMobile ? "down" : "right"}
       showSwipeHandle={isMobile}
       open={isOpen}
       onOpenChange={setIsOpen}
@@ -38,7 +38,7 @@ export default function ShoppingCartDrawer() {
           <LuShoppingCart className="text-primary text-2xl cursor-pointer" />
         }
       ></DrawerTrigger>
-      <DrawerContent className="h-full">
+      <DrawerContent className={"h-full " + (isMobile ? "" : "min-w-96")}>
         <DrawerHeader>
           <DrawerTitle className="text-primary">Shopping cart</DrawerTitle>
           <DrawerDescription>Manage your items</DrawerDescription>
