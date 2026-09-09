@@ -1,9 +1,9 @@
-import ShoppingCart from "@/components/shopping-cart";
+import CheckoutCartCard from "@/components/checkout-cart-card";
 
 export default function CheckoutPage() {
   return (
     <main>
-      <ShoppingCart />
+      <CheckoutCartCard />
     </main>
   );
 }
