@@ -1,26 +1,26 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "preserve",
-    "strict": true,
-    "verbatimModuleSyntax": true,
-    "skipLibCheck": true,
-    "types": [
-      "node"
-    ],
-    "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx",
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "rewriteRelativeImportExtensions": true,
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "prisma.config.ts"
-  ]
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "preserve",
+		"strict": true,
+		"verbatimModuleSyntax": true,
+		"skipLibCheck": true,
+		"types": [
+			"node"
+		],
+		"jsx": "react-jsx",
+		"jsxImportSource": "hono/jsx",
+		"rootDir": "..",
+		"outDir": "./dist",
+		"rewriteRelativeImportExtensions": true,
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true
+	},
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules",
+		"prisma.config.ts"
+	]
 }
