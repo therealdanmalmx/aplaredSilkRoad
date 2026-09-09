@@ -47,11 +47,11 @@ const ProductPage = () => {
   }
 
   return (
-    <article className='m-4 grid md:flex md:flex-row md:w-ful h-full'>
+    <article className='m-4 grid md:flex md:flex-row md:w-full h-full'>
       <section>
         <img className="object-cover w-125 h-96 rounded-xl" src={product.imageURL} alt={product.name} />
       </section>
-      <div className='flex flex-col justify-between md:h-96 md:ml-12 mt-8 md:mt-0 md:w-1/3'>
+      <div className='flex flex-col justify-between md:ml-12 mt-8 md:mt-0 md:w-1/3'>
         <section className='flex flex-col gap-4'>
           <h1 className="text-4xl italic text-black">{product.name}</h1>
           <h3 className='text-primary text-2xl'>{product.price/100} kr</h3>
