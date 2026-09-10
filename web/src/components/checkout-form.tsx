@@ -60,9 +60,6 @@ export default function CheckoutForm(props: Props) {
     console.log("Successful order", validation.data);
     orderForm.reset();
   };
-  const onInvalidOrder = (fieldErrors: any) => {
-    console.log("errors", fieldErrors);
-  };
 
   const countries = [
     { label: "Sweden", value: "sweden" },
@@ -77,7 +74,7 @@ export default function CheckoutForm(props: Props) {
       <form
         id="new-order-form"
         className="flex flex-col gap-4"
-        onSubmit={orderForm.handleSubmit(createOrder, onInvalidOrder)}
+        onSubmit={orderForm.handleSubmit(createOrder)}
       >
         <FieldSet>
           <FieldLegend>Contact information</FieldLegend>
