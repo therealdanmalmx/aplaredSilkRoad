@@ -31,6 +31,7 @@ import {
   createOrderSchema,
   type CreateOrder,
 } from "../../../shared/schemas/orderSchema";
+import { Spinner } from "./ui/spinner";
 
 interface Props {}
 
@@ -75,7 +76,7 @@ export default function CheckoutForm(props: Props) {
         className="flex flex-col gap-4"
         onSubmit={orderForm.handleSubmit(createOrder)}
       >
-        <FieldSet>
+        <FieldSet disabled={orderForm.formState.isSubmitting}>
           <FieldLegend>Contact information</FieldLegend>
           <FieldDescription>
             We'll use this information to contact you about your order.
@@ -117,7 +118,7 @@ export default function CheckoutForm(props: Props) {
           </FieldGroup>
         </FieldSet>
         <FieldSeparator />
-        <FieldSet>
+        <FieldSet disabled={orderForm.formState.isSubmitting}>
           <FieldLegend>Delivery address</FieldLegend>
           <FieldDescription>
             We need information to deliver your order.
@@ -194,7 +195,10 @@ export default function CheckoutForm(props: Props) {
           </FieldGroup>
         </FieldSet>
         <Button type="submit" disabled={orderForm.formState.isSubmitting}>
-          {orderForm.formState.isSubmitting ? "Submitting..." : "Submit order"}
+          {orderForm.formState.isSubmitting && <Spinner />}
+          {orderForm.formState.isSubmitting
+            ? "Processing order..."
+            : "Submit order"}
         </Button>
       </form>
     </>
