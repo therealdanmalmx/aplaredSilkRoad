@@ -44,9 +44,6 @@ export default function CheckoutForm(props: Props) {
   });
 
   const createOrder = async (customer: Customer) => {
-    // simulate fetch
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
     const newOrder: CreateOrder = {
       customer,
       items: cart.map((ci) => ({ productId: ci.id, quantity: ci.amount })),
@@ -56,6 +53,8 @@ export default function CheckoutForm(props: Props) {
       console.log("failed validation", validation.error);
       return;
     }
+    // simulate fetch
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
     console.log("Successful order", validation.data);
     orderForm.reset();
