@@ -1,30 +1,37 @@
+import { deleteProduct, getProducts } from "@/api/products";
 import { AdminProductCard } from "@/components/admin-product-card";
 import { AdminProductTable } from "@/components/admin-product-table";
-
-import { getProducts } from "@/api/products";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { LuCirclePlus } from "react-icons/lu";
 import { Link } from "react-router";
 import { MoonLoader } from "react-spinners";
-import type { Product } from "../../../api/src/interfaces/admin";
 
 const AdminPage = () => {
+  const queryClient = useQueryClient();
   const {
     data: products = [],
     isLoading,
+    isError,
     error,
   } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
   });
 
-  if (error) {
-    toast.error("Something went wron. Try again.");
+  if (isError) {
+    toast.error(`Something went wrong: ${error.message}`);
   }
 
+  const deleteMutation = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
+  });
+
   const handleDelete = (id: string) => {
-    products.filter((product: Product) => product.id !== id);
+    deleteMutation.mutate(id);
   };
 
   return (
