@@ -24,10 +24,16 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useCartStorage } from "@/hooks/useCartStorage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
+import { Link } from "react-router";
 import z from "zod";
-import type { Customer } from "../../../shared/schemas/customerSchema";
-import { customerSchema } from "../../../shared/schemas/customerSchema";
-import type { CreateOrder } from "../../../shared/schemas/orderSchema";
+import {
+  customerSchema,
+  type Customer,
+} from "../../../shared/schemas/customerSchema";
+import {
+  createOrderSchema,
+  type CreateOrder,
+} from "../../../shared/schemas/orderSchema";
 
 export default function CheckoutPage() {
   const { cart } = useCartStorage();
@@ -38,14 +44,22 @@ export default function CheckoutPage() {
     mode: "onSubmit",
   });
 
-  const createOrder = (customer: Customer) => {
-    orderForm.reset();
+  const createOrder = async (customer: Customer) => {
+    // simulate fetch
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     const newOrder: CreateOrder = {
       customer,
       items: cart.map((ci) => ({ productId: ci.id, quantity: ci.amount })),
     };
+    const validation = createOrderSchema.safeParse(newOrder);
+    if (!validation.success) {
+      console.log("failed validation", validation.error);
+      return;
+    }
 
-    console.log("Successful order", newOrder);
+    console.log("Successful order", validation.data);
+    orderForm.reset();
   };
   const onInvalidOrder = (fieldErrors: any) => {
     console.log("errors", fieldErrors);
@@ -60,10 +74,21 @@ export default function CheckoutPage() {
     { label: "Norway", value: "norway" },
   ];
 
+  if (cart.length === 0) {
+    return (
+      <div className="mx-auto m-4 flex flex-col gap-4 w-fit">
+        <p className="text-center">Your cart is empty.</p>
+        <Button variant="link">
+          <Link to="/">Go back to shopping</Link>
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div
       className={
-        isMobile ? "flex flex-col m-4" : "mx-auto flex w-fit gap-8 m-4"
+        isMobile ? "m-4 flex flex-col" : "mx-auto m-4 flex w-fit gap-8"
       }
     >
       <form
@@ -84,7 +109,8 @@ export default function CheckoutPage() {
                 <Input
                   id="firstname"
                   {...orderForm.register("firstName")}
-                  autoComplete="on"
+                  type="text"
+                  autoComplete="given-name"
                 />
                 <FieldError errors={[orderForm.formState.errors.firstName]} />
               </Field>
@@ -93,7 +119,8 @@ export default function CheckoutPage() {
                 <Input
                   id="lastname"
                   {...orderForm.register("lastName")}
-                  autoComplete="on"
+                  type="text"
+                  autoComplete="family-name"
                 />
                 <FieldError errors={[orderForm.formState.errors.lastName]} />
               </Field>
@@ -103,7 +130,8 @@ export default function CheckoutPage() {
               <Input
                 id="phone"
                 {...orderForm.register("phone")}
-                autoComplete="on"
+                type="tel"
+                autoComplete="tel"
               />
               <FieldError errors={[orderForm.formState.errors.phone]} />
             </Field>
@@ -111,7 +139,7 @@ export default function CheckoutPage() {
         </FieldSet>
         <FieldSeparator />
         <FieldSet>
-          <FieldLegend>Delivery adress</FieldLegend>
+          <FieldLegend>Delivery address</FieldLegend>
           <FieldDescription>
             We need information to deliver your order.
           </FieldDescription>
@@ -153,7 +181,8 @@ export default function CheckoutPage() {
               <Input
                 id="city"
                 {...orderForm.register("address.city")}
-                autoComplete="on"
+                type="text"
+                autoComplete="address-level2"
               />
               <FieldError errors={[orderForm.formState.errors.address?.city]} />
             </Field>
@@ -163,7 +192,8 @@ export default function CheckoutPage() {
                 <Input
                   id="street"
                   {...orderForm.register("address.street")}
-                  autoComplete="on"
+                  type="text"
+                  autoComplete="street-address"
                 />
                 <FieldError
                   errors={[orderForm.formState.errors.address?.street]}
@@ -174,7 +204,8 @@ export default function CheckoutPage() {
                 <Input
                   id="zipcode"
                   {...orderForm.register("address.zipCode")}
-                  autoComplete="on"
+                  type="text"
+                  autoComplete="postal-code"
                 />
                 <FieldError
                   errors={[orderForm.formState.errors.address?.zipCode]}
@@ -183,8 +214,8 @@ export default function CheckoutPage() {
             </div>
           </FieldGroup>
         </FieldSet>
-        <Button type="submit" form="new-order-form">
-          Submit order
+        <Button type="submit" disabled={orderForm.formState.isSubmitting}>
+          {orderForm.formState.isSubmitting ? "Submitting..." : "Submit order"}
         </Button>
       </form>
       <div className={isMobile ? "-order-1" : ""}>
