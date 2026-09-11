@@ -18,10 +18,10 @@ const Footer = () => {
             id='fieldgroup-email'
             type='email'
             placeholder='name@example.com'
-            className='p-2 bg-input outline-none w-full xl:w-60 rounded-md'
+            className='p-2 bg-input outline-none w-full 2xl:w-60 rounded-md'
           />
           <Button
-            className='p-5 w-full max-w-60 2xl:w-28 mt-2 2xl:mt-0 2xl:ml-2 cursor-pointer'
+            className='p-5 w-full max-w-[301.16px] 2xl:w-28 mt-2 2xl:mt-0 2xl:ml-2 cursor-pointer'
             type='submit'>
             Submit
           </Button>
