@@ -1,3 +1,4 @@
+import postOrder from "@/api/create-order";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -21,7 +22,10 @@ import {
 } from "@/components/ui/select";
 import { useCartStorage } from "@/hooks/useCartStorage";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import z from "zod";
 import {
   customerSchema,
@@ -33,10 +37,12 @@ import {
 } from "../../../shared/schemas/orderSchema";
 import { Spinner } from "./ui/spinner";
 
-interface Props {}
+export default function CheckoutForm() {
+  const { cart, resetCart } = useCartStorage();
+  const navigator = useNavigate();
+  const [submitErrors, setsubmitErrors] = useState<any>();
 
-export default function CheckoutForm(props: Props) {
-  const { cart } = useCartStorage();
+  const orderMutation = useMutation({ mutationFn: postOrder });
 
   const orderForm = useForm<z.infer<typeof customerSchema>>({
     resolver: zodResolver(customerSchema),
@@ -49,16 +55,30 @@ export default function CheckoutForm(props: Props) {
       customer,
       items: cart.map((ci) => ({ productId: ci.id, quantity: ci.amount })),
     };
+
     const validation = createOrderSchema.safeParse(newOrder);
     if (!validation.success) {
       console.log("failed validation", validation.error);
       return;
     }
-    // simulate fetch
-    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    console.log("Successful order", validation.data);
+    // send (post) order to api
+    await orderMutation.mutateAsync(newOrder);
+    if (orderMutation.isError) {
+      console.log("error", orderMutation.error);
+      return;
+    }
+
+    console.log(orderMutation.status);
+
+    console.log("success", orderMutation.data);
+
+    const newOrderId = orderMutation.data.id;
+
+    // reset form & delete cart from local storage
     orderForm.reset();
+    resetCart();
+    navigator({ pathname: `/confirmation/${newOrderId}` });
   };
 
   const countries = [
@@ -194,12 +214,17 @@ export default function CheckoutForm(props: Props) {
             </div>
           </FieldGroup>
         </FieldSet>
-        <Button type="submit" disabled={orderForm.formState.isSubmitting}>
-          {orderForm.formState.isSubmitting && <Spinner />}
-          {orderForm.formState.isSubmitting
-            ? "Processing order..."
-            : "Submit order"}
-        </Button>
+        <Field>
+          <Button type="submit" disabled={orderForm.formState.isSubmitting}>
+            {orderForm.formState.isSubmitting && <Spinner />}
+            {orderForm.formState.isSubmitting
+              ? "Processing order..."
+              : "Submit order"}
+          </Button>
+          {orderMutation.isError && (
+            <FieldError>Something went wrong. Try again soon.</FieldError>
+          )}
+        </Field>
       </form>
     </>
   );
