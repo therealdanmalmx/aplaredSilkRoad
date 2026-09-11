@@ -23,7 +23,6 @@ import {
 import { useCartStorage } from "@/hooks/useCartStorage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import z from "zod";
@@ -40,7 +39,6 @@ import { Spinner } from "./ui/spinner";
 export default function CheckoutForm() {
   const { cart, resetCart } = useCartStorage();
   const navigator = useNavigate();
-  const [submitErrors, setsubmitErrors] = useState<any>();
 
   const orderMutation = useMutation({ mutationFn: postOrder });
 
@@ -58,24 +56,18 @@ export default function CheckoutForm() {
 
     const validation = createOrderSchema.safeParse(newOrder);
     if (!validation.success) {
-      console.log("failed validation", validation.error);
       return;
     }
 
     // send (post) order to api
     await orderMutation.mutateAsync(newOrder);
     if (orderMutation.isError) {
-      console.log("error", orderMutation.error);
       return;
     }
 
-    console.log(orderMutation.status);
+    const newOrderId = await orderMutation.data.id;
 
-    console.log("success", orderMutation.data);
-
-    const newOrderId = orderMutation.data.id;
-
-    // reset form & delete cart from local storage
+    // reset form & delete cart from local storage, then navigate to confirmation page
     orderForm.reset();
     resetCart();
     navigator({ pathname: `/confirmation/${newOrderId}` });
