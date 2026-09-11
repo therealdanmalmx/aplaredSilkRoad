@@ -29,7 +29,7 @@ För att starta projektet så klonar man ner [aplaredsilkroad](https://github.co
 
 **Home**
 
-- [ ] Ska ha en övergripande layout med header, main & footer.
+- [x] Ska ha en övergripande layout med header, main & footer.
 - [x] Startsidan ska lista samtliga produkter.
 - [x] Det ska gå att lägga till produkter i kundvagnen (header + toast + ls).
 - [x] Det ska gå att klicka på en produkt och komma till en detaljsida.
@@ -37,15 +37,15 @@ För att starta projektet så klonar man ner [aplaredsilkroad](https://github.co
 
 **Produkt**
 
-- [ ] Ska ha en övergripande layout med header, main & footer.
+- [x] Ska ha en övergripande layout med header, main & footer.
 - [x] Detaljsidan ska visa all info om en produkt.
 - [x] Det ska gå att lägga till produkten i kundvagnen (header + toast + ls).
 - [x] Sidan ska vara responsiv och gå att använda på mobil, tablet & desktop.
 
 **Kundvagn & Checkout**
 
-- [ ] Ska ha en övergripande layout med header, main & footer.
-- [ ] Det ska gå att gå till checkoutsidan och se innehållet i kundvagnen (knapp & url).
+- [x] Ska ha en övergripande layout med header, main & footer.
+- [x] Det ska gå att gå till checkoutsidan och se innehållet i kundvagnen (knapp & url).
 - [x] Det ska gå att se det totala priset i kundvagnen.
 - [x] Det ska gå att ändra produkterna i kundvagnen (header + vyn + pris + ls).
 - [ ] Det ska gå att ange leveransuppgifter i ett formulär.
