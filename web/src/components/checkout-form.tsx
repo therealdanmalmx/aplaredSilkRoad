@@ -69,13 +69,9 @@ export default function CheckoutForm() {
       return;
     }
 
-    console.log(orderMutation.status);
+    const newOrderId = await orderMutation.data.id;
 
-    console.log("success", orderMutation.data);
-
-    const newOrderId = orderMutation.data.id;
-
-    // reset form & delete cart from local storage
+    // reset form & delete cart from local storage, then navigate to confirmation page
     orderForm.reset();
     resetCart();
     navigator({ pathname: `/confirmation/${newOrderId}` });
