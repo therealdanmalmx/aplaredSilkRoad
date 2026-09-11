@@ -42,7 +42,7 @@ export default function ShoppingCartDrawer() {
             {cart.length > 0 && (
               <Badge
                 variant='outline'
-                className='size-4 bg-primary rounded-full border-none relative left-4 bottom-8 flex justify-center items-center cursor-pointer'>
+                className='size-4 bg-primary rounded-full border-none relative left-4 bottom-3 md:bottom-8 flex justify-center items-center cursor-pointer'>
                 <span className='text-[0.7rem] text-white'>{cart.length}</span>
               </Badge>
             )}
