@@ -20,10 +20,10 @@ För att starta projektet så klonar man ner [aplaredsilkroad](https://github.co
 
 ## Krav för Godkänt
 
-- [ ] Git & GitHub har använts
-- [ ] Projektmappen innehåller en README.md fil - (läs ovan för mer info)
-- [ ] Uppgiften lämnas in i tid!
-- [ ] Ett designsystem/komponentbibliotek används nästintill helt uteslutande för att bygga sidan (ex: MUI, ChakraUI, Mantine, etc).
+- [x] Git & GitHub har använts
+- [x] Projektmappen innehåller en README.md fil - (läs ovan för mer info)
+- [x] Uppgiften lämnas in i tid!
+- [x] Ett designsystem/komponentbibliotek används nästintill helt uteslutande för att bygga sidan (ex: MUI, ChakraUI, Mantine, etc).
 
 **Home**
 
