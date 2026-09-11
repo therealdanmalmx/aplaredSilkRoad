@@ -66,7 +66,7 @@ const AdminPage = () => {
               <AdminProductTable products={products} onDeleted={handleDelete} />
             </div>
 
-            <div className='flex flex-col gap-8 md:hidden'>
+            <div className='flex flex-col gap-2 md:hidden'>
               {products.map((product) => (
                 <AdminProductCard
                   key={product.id}
