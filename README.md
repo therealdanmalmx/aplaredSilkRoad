@@ -14,7 +14,7 @@ Appen är en e-handelsapp byggt i typescript både i frontend (React byggd på V
 - [Zod](https://react-hook-form.com)
 - [Neon](https://neon.com)
 
-Appen representerar en enkel version av ett e-handelssystem där man kan administrera produkter (full CRUD), see en produktlista och produktdetaljsida, lägga till och ta bort produkter i en kundvagn och sedan lägga en order via en checkout som bekräftas med en bekräftelsesida. 
+Appen representerar en enkel version av ett e-handelssystem där man kan administrera produkter (full CRUD), se en produktlista och produktdetaljsida, lägga till och ta bort produkter i en kundvagn och sedan lägga en order via en checkout som bekräftas med en bekräftelsesida. 
 
 För att starta projektet så klonar man ner [aplaredsilkroad](https://github.com/therealdanmalmx/aplaredSilkRoad) till sin egen dator, öppnar två flikar **VSCode** (web och api), kör `npm install` i bägge mapparna och sedan `npm run dev` i båda. Man behäver även lägga till en `.env` fil där anslutningssträngen till databased läggs. Av säkerhetsskäl delas den inte här, utan ges ut på begäran. 
 
