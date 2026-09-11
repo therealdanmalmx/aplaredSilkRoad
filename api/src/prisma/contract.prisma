@@ -7,10 +7,11 @@ model Product {
   description   String?
   imageURL      String
   price         Int
+  isDeleted     Boolean @default(false)
   createdAt     TimestamptzString @default(now())
   updatedAt     temporal.updatedAtString()
 
-  orderItems	    OrderItem[]
+  orderItems	   OrderItem[]
 }
 
 model Order{

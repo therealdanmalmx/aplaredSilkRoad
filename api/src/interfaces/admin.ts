@@ -1,15 +1,16 @@
 export interface Product {
-    id: string,
-    name: string,
-    slug: string,
-    description: string,
-    imageURL: string,
-    price: number,
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  imageURL: string;
+  isDeleted: boolean;
+  price: number;
 }
 export interface UpdateProduct {
-    name: string,
-    slug: string,
-    description: string,
-    imageURL: string,
-    price: number,
+  name: string;
+  slug: string;
+  description: string;
+  imageURL: string;
+  price: number;
 }

@@ -67,13 +67,15 @@ const AdminPage = () => {
             </div>
 
             <div className='flex flex-col gap-2 md:hidden'>
-              {products.map((product) => (
-                <AdminProductCard
-                  key={product.id}
-                  product={product}
-                  onDeleted={handleDelete}
-                />
-              ))}
+              {products
+                .filter((product) => !product.isDeleted)
+                .map((product) => (
+                  <AdminProductCard
+                    key={product.id}
+                    product={product}
+                    onDeleted={handleDelete}
+                  />
+                ))}
             </div>
           </div>
         </>

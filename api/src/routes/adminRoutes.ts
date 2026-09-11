@@ -54,7 +54,13 @@ app.put("/:id", sValidator("json", updateAdminProductSchema), async (c) => {
 
 app.delete("/:id", async (c) => {
   const id = c.req.param("id");
-  const product = await db.orm.public.Product.where({ id }).delete();
+
+  if (id.length <= 0) {
+    return c.json({ error: "Id not found" }, 404);
+  }
+  const product = await db.orm.public.Product.where({ id }).update({
+    isDeleted: true,
+  });
 
   if (!product) {
     return c.json({ error: "Product not found" }, 404);
