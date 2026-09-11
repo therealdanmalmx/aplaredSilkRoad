@@ -11,15 +11,17 @@ const Footer = () => {
           <p>The road to hapiness leads through Aplared.</p>
         </section>
         <section>
-          <h4 className='italic text-xl font-bold mb-2'>Our Newsletter</h4>
+          <h4 className='italic text-xl font-bold mb-2 flex-1'>
+            Our Newsletter
+          </h4>
           <Input
             id='fieldgroup-email'
             type='email'
             placeholder='name@example.com'
-            className='p-2 bg-input outline-none w-full md:w-60 rounded-md max-w-72'
+            className='p-2 bg-input outline-none w-full 2xl:w-60 rounded-md'
           />
           <Button
-            className='p-5 w-full md:w-28 mt-2 md:mt-0 md:ml-2 cursor-pointer'
+            className='p-5 w-full max-w-[301.16px] 2xl:w-28 mt-2 2xl:mt-0 2xl:ml-2 cursor-pointer'
             type='submit'>
             Submit
           </Button>

@@ -21,7 +21,7 @@ export function AdminProductCard({
   onDeleted: (id: string) => void;
 }) {
   return (
-    <Card className='relative mx-auto w-full sm pt-0 h-96'>
+    <Card className='relative my-4 md:my-0 mx-auto w-full sm pt-0 h-96'>
       <Badge className='absolute top-4 left-4 z-50 p-4 text-md'>
         {product.price / 100}kr
       </Badge>
