@@ -24,5 +24,9 @@ export function useCartStorage() {
     setCart([...newCart]);
   }
 
-  return { addItem, deleteItem, cart };
+  function resetCart() {
+    setCart([]);
+  }
+
+  return { addItem, deleteItem, resetCart, cart };
 }
