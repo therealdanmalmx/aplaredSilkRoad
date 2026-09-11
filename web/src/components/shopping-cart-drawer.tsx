@@ -15,6 +15,7 @@ import { useState } from "react";
 import { LuShoppingCart } from "react-icons/lu";
 import { useNavigate } from "react-router";
 import ShoppingCart from "./shopping-cart";
+import { Badge } from "./ui/badge";
 
 export default function ShoppingCartDrawer() {
   const navigate = useNavigate();
@@ -39,9 +40,11 @@ export default function ShoppingCartDrawer() {
           <div>
             <LuShoppingCart className='text-primary text-2xl cursor-pointer mr-4 z-50' />
             {cart.length > 0 && (
-              <p className='size-4 text-xs bg-primary rounded-full relative left-4 bottom-8 flex justify-center items-center cursor-pointer'>
+              <Badge
+                variant='outline'
+                className='size-4 bg-primary rounded-full border-none relative left-4 bottom-8 flex justify-center items-center cursor-pointer'>
                 <span className='text-[0.7rem] text-white'>{cart.length}</span>
-              </p>
+              </Badge>
             )}
           </div>
         }></DrawerTrigger>
