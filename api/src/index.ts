@@ -9,15 +9,13 @@ const app = new Hono();
 app.use(
   "*",
   cors({
-    origin: "http://localhost:5173",
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowHeaders: ["Content-Type"],
   }),
 );
 
 // slash should be included in base_url -> {stuff}admin -> NOT {stuff}/admin
-app.route(`${process.env.BASE_URL}admin`, adminRoutes);
-app.route(`${process.env.BASE_URL}order`, orderRoutes);
+app.route(`${process.env.BASE_URL}/admin`, adminRoutes);
+app.route(`${process.env.BASE_URL}/order`, orderRoutes);
 
 serve(
   {
