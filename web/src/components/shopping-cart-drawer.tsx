@@ -10,6 +10,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useCartStorage } from "@/hooks/useCartStorage";
 import { useState } from "react";
 import { LuShoppingCart } from "react-icons/lu";
 import { useNavigate } from "react-router";
@@ -18,8 +19,9 @@ import ShoppingCart from "./shopping-cart";
 export default function ShoppingCartDrawer() {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
-
   const [isOpen, setIsOpen] = useState(false);
+
+  const { cart } = useCartStorage();
 
   const toCheckoutButtonHandler = () => {
     navigate("/checkout");
@@ -31,22 +33,27 @@ export default function ShoppingCartDrawer() {
       swipeDirection={isMobile ? "down" : "right"}
       showSwipeHandle={isMobile}
       open={isOpen}
-      onOpenChange={setIsOpen}
-    >
+      onOpenChange={setIsOpen}>
       <DrawerTrigger
         render={
-          <LuShoppingCart className="text-primary text-2xl cursor-pointer" />
-        }
-      ></DrawerTrigger>
+          <div>
+            <LuShoppingCart className='text-primary text-2xl cursor-pointer mr-4 z-50' />
+            {cart.length > 0 && (
+              <p className='size-4 text-xs bg-primary rounded-full relative left-4 bottom-8 flex justify-center items-center cursor-pointer'>
+                <span className='text-[0.7rem] text-white'>{cart.length}</span>
+              </p>
+            )}
+          </div>
+        }></DrawerTrigger>
       <DrawerContent className={"h-full " + (isMobile ? "" : "min-w-96")}>
         <DrawerHeader>
-          <DrawerTitle className="text-primary">Shopping cart</DrawerTitle>
+          <DrawerTitle className='text-primary'>Shopping cart</DrawerTitle>
           <DrawerDescription>Manage your items</DrawerDescription>
         </DrawerHeader>
         <ShoppingCart scrollabe={true} />
         <DrawerFooter>
           <Button onClick={toCheckoutButtonHandler}>To Checkout</Button>
-          <DrawerClose render={<Button variant="outline" />}>
+          <DrawerClose render={<Button variant='outline' />}>
             Cancel
           </DrawerClose>
         </DrawerFooter>
