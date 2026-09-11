@@ -35,8 +35,8 @@ const AdminPage = () => {
   };
 
   return (
-    <div className='mx-8 md:mx-12 h-screen'>
-      <h1 className='text-2xl text-primary font-bold my-4 text-center'>
+    <div className='mx-8 md:mx-12 h-full'>
+      <h1 className='text-2xl text-primary font-bold mt-2 text-center'>
         Admin Page
       </h1>
       {isLoading && (
@@ -52,7 +52,7 @@ const AdminPage = () => {
 
       {!isLoading && (
         <>
-          <section className='flex justify-center md:justify-end items-center space-x-4 my-6'>
+          <section className='flex justify-center md:justify-end items-center space-x-4 my-4'>
             <p className='text-primary text-xl'>Add new product </p>
             <Link to='/admin/add-product' className='flex items-center'>
               <LuCirclePlus

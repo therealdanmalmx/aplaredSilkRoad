@@ -4,8 +4,8 @@ import { Button } from "../ui/button";
 
 const Footer = () => {
   return (
-    <footer className='min-h-96 w-full h-full bg-chart-5 p-12'>
-      <div className='flex justify-between gap-4 items-start flex-col md:flex-row'>
+    <footer className='min-h-80 w-full h-full bg-chart-5 p-12'>
+      <div className='flex justify-between gap-8 md:gap-4 items-start flex-col md:flex-row'>
         <section>
           <h4 className='italic text-xl font-bold'>Aplared Silk Road</h4>
           <p>The road to hapiness leads through Aplared.</p>
@@ -16,10 +16,10 @@ const Footer = () => {
             id='fieldgroup-email'
             type='email'
             placeholder='name@example.com'
-            className='p-2 bg-input w-full md:w-60 rounded-md max-w-72'
+            className='p-2 bg-input outline-none w-full md:w-60 rounded-md max-w-72'
           />
           <Button
-            className='p-5 w-full md:w-28 mt-2 md:mt-0 md:ml-2'
+            className='p-5 w-full md:w-28 mt-2 md:mt-0 md:ml-2 cursor-pointer'
             type='submit'>
             Submit
           </Button>

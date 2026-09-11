@@ -6,7 +6,7 @@ export default function MainLayout() {
   return (
     <div>
       <Header />
-      <main>
+      <main className='min-h-full flex-1'>
         <Outlet />
       </main>
       <Footer />
