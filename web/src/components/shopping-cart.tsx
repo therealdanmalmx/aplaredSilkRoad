@@ -48,7 +48,7 @@ export default function ShoppingCart(props: Props) {
       <div className="shrink-0 border-t p-4">
         <p>Subtotal: {subTotal} kr</p>
         <p>Shipping: {shipping}</p>
-        <p>Total: {total}</p>
+        <p>Total: {total} kr</p>
       </div>
     </section>
   );

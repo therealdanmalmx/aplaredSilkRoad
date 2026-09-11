@@ -13,3 +13,5 @@ export const customerSchema = z.object({
   phone: z.string().min(1),
   address: addressSchema,
 });
+
+export type Customer = z.infer<typeof customerSchema>;

@@ -15,8 +15,9 @@ app.use(
   }),
 );
 
-app.route("/admin", adminRoutes);
-app.route("/order", orderRoutes);
+// slash should be included in base_url -> {stuff}admin -> NOT {stuff}/admin
+app.route(`${process.env.BASE_URL}admin`, adminRoutes);
+app.route(`${process.env.BASE_URL}order`, orderRoutes);
 
 serve(
   {
