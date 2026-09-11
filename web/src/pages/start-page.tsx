@@ -11,14 +11,15 @@ export default function StartPage() {
   const {
     data: products = [],
     isLoading,
+    isError,
     error,
   } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
   });
 
-  if (error) {
-    console.log("no");
+  if (isError) {
+    console.error(`An error occursed: ${error.message}`);
   }
   return (
     <>
