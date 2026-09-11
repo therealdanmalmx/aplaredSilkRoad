@@ -12,7 +12,11 @@ import { useState } from "react";
 import { Link } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
 
-export default function ProductCard(product: Product) {
+interface Props {
+  product: Product;
+}
+
+export default function ProductCard({ product }: Props) {
   const [amount, setAmount] = useState(1);
   const { addItem } = useCartStorage();
 

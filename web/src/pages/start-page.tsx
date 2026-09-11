@@ -40,7 +40,7 @@ export default function StartPage() {
               {products
                 .filter((product) => !product.isDeleted)
                 .map((product: Product) => {
-                  return <ProductCard {...product}></ProductCard>;
+                  return <ProductCard key={product.id} product={product} />;
                 })}
             </div>
           )}
