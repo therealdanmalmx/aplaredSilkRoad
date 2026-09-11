@@ -4,22 +4,22 @@ import { Button } from "../ui/button";
 
 const Footer = () => {
   return (
-    <footer className='min-h-96 w-full h-full bg-chart-5 p-12'>
-      <div className='flex justify-between gap-4 items-start flex-col md:flex-row'>
+    <footer className='min-h-80 w-full h-full bg-chart-5 p-12'>
+      <div className='flex justify-between gap-8 md:gap-4 items-start flex-col md:flex-row'>
         <section>
           <h4 className='italic text-xl font-bold'>Aplared Silk Road</h4>
-          <p className=''>The road to hapiness leads through Aplared</p>
+          <p>The road to hapiness leads through Aplared.</p>
         </section>
         <section>
-          <h4 className='italic text-xl font-bold'>Our Newsletter</h4>
+          <h4 className='italic text-xl font-bold mb-2'>Our Newsletter</h4>
           <Input
             id='fieldgroup-email'
             type='email'
             placeholder='name@example.com'
-            className='border p-2 border-primary w-full md:w-60 rounded-md max-w-72'
+            className='p-2 bg-input outline-none w-full md:w-60 rounded-md max-w-72'
           />
           <Button
-            className='p-5 w-full md:w-28 mt-2 md:mt-0 md:ml-2'
+            className='p-5 w-full md:w-28 mt-2 md:mt-0 md:ml-2 cursor-pointer'
             type='submit'>
             Submit
           </Button>
@@ -37,11 +37,14 @@ const Footer = () => {
         <LuFishSymbol className='mx-5 text-primary text-6xl' />
         <hr className='w-full text-primary' />
       </section>
-      <section>
+      <section className='flex flex-col md:flex-row md:gap-2'>
         <p className='text-sm'>
           &copy; {new Date().getFullYear()} Aplared Silk Road. All rights
           reserved.
         </p>
+        <a href='#' className='text-sm'>
+          Privacy Policy
+        </a>
       </section>
     </footer>
   );
