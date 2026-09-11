@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 const Footer = () => {
   return (
-    <footer className='h-96 w-full h-full bg-chart-5 p-12'>
+    <footer className='min-h-96 w-full h-full bg-chart-5 p-12'>
       <div className='flex justify-between gap-4 items-start flex-col md:flex-row'>
         <section>
           <h4 className='italic text-xl font-bold'>Aplared Silk Road</h4>
