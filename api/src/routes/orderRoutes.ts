@@ -5,6 +5,7 @@ import { db } from "../prisma/db";
 
 const app = new Hono();
 
+// Order with products
 app.get("/:id", async (c) => {
   const id = c.req.param("id");
 
@@ -14,11 +15,11 @@ app.get("/:id", async (c) => {
     return c.json({ error: "Could not find order." }, 404);
   }
 
-  const orderItems = await db.orm.public.OrderItem.where({
+  const items = await db.orm.public.OrderItem.where({
     orderId: order.id,
   }).all();
 
-  return c.json({ order, orderItems });
+  return c.json({ order, items });
 });
 
 app.post("/", sValidator("json", createOrderSchema), async (c) => {

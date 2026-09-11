@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import MainLayout from "./layouts/main-layout";
 import AdminPage from "./pages/admin-page";
 import CheckoutPage from "./pages/checkout-page";
+import ConfirmationPage from "./pages/confirmation-page";
 import NewAdminProductPage from "./pages/new-admin-product-page";
 import ProductPage from "./pages/product-page";
 import StartPage from "./pages/start-page";
@@ -21,6 +22,7 @@ function App() {
           </Route>
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
+          <Route path="confirmation/:id" element={<ConfirmationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
