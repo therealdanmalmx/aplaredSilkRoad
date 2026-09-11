@@ -10,7 +10,7 @@ Appen är en e-handelsapp byggt i typescript både i frontend (React byggd på V
 - [Shadcn](https://ui.shadcn.com)
 - [React Hook Form](https://react-hook-form.com)
 - [React Hot Toast](https://react-hot-toast.com)
-- [React Spinner](https://www.davidhu.io/react-spinners)
+- [React Spinners](https://www.davidhu.io/react-spinners)
 - [Zod](https://react-hook-form.com)
 - [Neon](https://neon.com)
 
