@@ -7,3 +7,9 @@ export async function getProducts(): Promise<Product[]> {
 
   return data;
 }
+
+export const deleteProduct = async (id: string) => {
+  const product = (await getProducts()).filter((product) => product.id === id);
+
+  return product;
+};
