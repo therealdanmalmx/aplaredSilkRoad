@@ -1,6 +1,9 @@
 import { sValidator } from "@hono/standard-validator";
 import { Hono } from "hono";
-import { createOrderSchema } from "../../../shared/schemas/orderSchema";
+import {
+  createOrderSchema,
+  responseOrderSchema,
+} from "../../../shared/schemas/orderSchema";
 import { db } from "../prisma/db";
 
 const app = new Hono();
@@ -19,7 +22,25 @@ app.get("/:id", async (c) => {
     orderId: order.id,
   }).all();
 
-  return c.json({ order, items });
+  const response = responseOrderSchema.parse({
+    id: order.id,
+    createdAt: new Date(order.createdAt).toISOString(),
+    total: order.total,
+    customer: {
+      firstName: order.firstName,
+      lastName: order.lastName,
+      phone: order.phone,
+      address: {
+        country: order.country,
+        city: order.city,
+        street: order.street,
+        zipCode: order.zipCode,
+      },
+    },
+    items,
+  });
+
+  return c.json(response);
 });
 
 app.post("/", sValidator("json", createOrderSchema), async (c) => {
