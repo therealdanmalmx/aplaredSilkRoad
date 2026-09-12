@@ -17,6 +17,8 @@ import toast from "react-hot-toast";
 import { LuTrash2 } from "react-icons/lu";
 import { useNavigate } from "react-router";
 
+const apiUrl = import.meta.env.VITE_BASE_URL;
+
 const CustomDialog = ({
   productId,
   onDeleted,
@@ -43,7 +45,7 @@ const CustomDialog = ({
     }
 
     try {
-      const res = await fetch(`http://localhost:3000/admin/${productId}`, {
+      const res = await fetch(`${apiUrl}admin/${productId}`, {
         method: "DELETE",
       });
 
