@@ -4,16 +4,13 @@ export const creatAdminProductSchema = z.object({
   name: z.string().min(5, "Name must be at least 5 characters"),
   slug: z
     .string()
-    .min(5)
-    .regex(
-      /^[a-z0-9-]+$/,
-      "Lowercase letters, numbers and dashes only. Minimum 5 characters",
-    ),
+    .min(5, "Lowercase letters, numbers and dashes only. Minimum 5 characters")
+    .regex(/^[a-z0-9-]+$/),
   description: z
     .string()
     .min(15, "Description is required with a minimum of 15 characters"),
   imageURL: z.url("Must be a valid URL"),
-  isDeleted: z.boolean(),
+  isDeleted: z.boolean().optional(),
   price: z
     .number()
     .int("Price must be in whole cents")
@@ -25,7 +22,7 @@ export const updateAdminProductSchema = z.object({
   slug: z.string().min(5).optional(),
   description: z.string().min(15).nullable().optional(),
   imageURL: z.url().optional(),
-  isDeleted: z.boolean(),
+  isDeleted: z.boolean().optional(),
   price: z
     .number()
     .int("Price must be in whole cents")
