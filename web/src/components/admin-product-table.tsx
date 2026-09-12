@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { centsToDecimalCurrency } from "@/lib/utils";
 import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
@@ -56,7 +57,7 @@ export function AdminProductTable({
                 {product.description}
               </TableCell>
               <TableCell>{product.slug}</TableCell>
-              <TableCell>{product.price / 100}kr</TableCell>
+              <TableCell>{centsToDecimalCurrency(product.price)}kr</TableCell>
               <TableCell className='text-right pr-2'>
                 <Link to={`update-product/${product.id}`}>
                   <Button className='cursor-pointer'>
