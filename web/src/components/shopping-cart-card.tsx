@@ -4,6 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCartStorage } from "@/hooks/useCartStorage";
 import type { CartItem } from "@/lib/types";
+import { centsToDecimalCurrency } from "@/lib/utils";
 import { LuTrash2 } from "react-icons/lu";
 import type { Product } from "../../../api/src/interfaces/admin";
 
@@ -17,8 +18,8 @@ export default function ShoppingCartCard(props: Props) {
   const { addItem, deleteItem } = useCartStorage();
 
   return (
-    <article className="flex gap-1 mb-2 p-2 items-center justify-between">
-      <div className="flex gap-1 min-w-0 items-center self-stretch">
+    <article className='flex gap-1 mb-2 p-2 items-center justify-between'>
+      <div className='flex gap-1 min-w-0 items-center self-stretch'>
         {props.product ? (
           <img
             src={`${props.product.imageURL}`}
@@ -30,15 +31,15 @@ export default function ShoppingCartCard(props: Props) {
             className={(isMobile ? "size-10" : "size-20") + " rounded-full"}
           />
         )}
-        <div className="h-full text-left flex flex-col justify-between min-w-0">
+        <div className='h-full text-left flex flex-col justify-between min-w-0'>
           {props.product ? (
-            <h3 className="truncate">{props.product.name}</h3>
+            <h3 className='truncate'>{props.product.name}</h3>
           ) : (
-            <Skeleton className="h-4 w-25" />
+            <Skeleton className='h-4 w-25' />
           )}
           {props.product ? (
             <Input
-              type="number"
+              type='number'
               min={1}
               value={props.cartItem.amount}
               onChange={(e) => {
@@ -52,31 +53,34 @@ export default function ShoppingCartCard(props: Props) {
               }}
             />
           ) : (
-            <Skeleton className="h-4 w-25" />
+            <Skeleton className='h-4 w-25' />
           )}
         </div>
       </div>
-      <div className="flex flex-col items-end justify-between self-stretch">
+      <div className='flex flex-col items-end justify-between self-stretch'>
         {props.product ? (
           <div>
-            <p className="text-nowrap">á {props.product.price} kr</p>
-            <p className="text-nowrap">
-              {props.product.price * props.cartItem.amount} kr
+            <p className='text-nowrap'>
+              á {centsToDecimalCurrency(props.product.price)} kr
+            </p>
+            <p className='text-nowrap'>
+              {centsToDecimalCurrency(props.product.price) *
+                props.cartItem.amount}{" "}
+              kr
             </p>
           </div>
         ) : (
-          <Skeleton className="h-4 w-12.5" />
+          <Skeleton className='h-4 w-12.5' />
         )}
         {props.product ? (
           <Button
-            variant="ghost"
-            className="cursor-pointer"
-            onClick={() => deleteItem(props.cartItem.id)}
-          >
+            variant='ghost'
+            className='cursor-pointer'
+            onClick={() => deleteItem(props.cartItem.id)}>
             <LuTrash2 />
           </Button>
         ) : (
-          <Skeleton className="size-6" />
+          <Skeleton className='size-6' />
         )}
       </div>
     </article>

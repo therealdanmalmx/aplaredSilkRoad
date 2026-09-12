@@ -1,5 +1,6 @@
 import { getProduct } from "@/api/product";
 import { useCartStorage } from "@/hooks/useCartStorage";
+import { centsToDecimalCurrency } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import type { Product } from "../../../api/src/interfaces/admin";
 import ShoppingCartCard from "./shopping-cart-card";
@@ -35,7 +36,7 @@ export default function ShoppingCart(props: Props) {
   }, [cart]);
 
   return (
-    <section className="flex flex-col h-full min-h-0">
+    <section className='flex flex-col h-full min-h-0'>
       <div className={props.scrollabe ? "min-h-0 flex-1 overflow-y-auto" : ""}>
         {cart.map((ci) => {
           const product = products?.find((p) => p.id === ci.id);
@@ -45,10 +46,10 @@ export default function ShoppingCart(props: Props) {
           );
         })}
       </div>
-      <div className="shrink-0 border-t p-4">
-        <p>Subtotal: {subTotal} kr</p>
+      <div className='shrink-0 border-t p-4'>
+        <p>Subtotal: {centsToDecimalCurrency(subTotal)} kr</p>
         <p>Shipping: {shipping}</p>
-        <p>Total: {total} kr</p>
+        <p>Total: {centsToDecimalCurrency(total)} kr</p>
       </div>
     </section>
   );

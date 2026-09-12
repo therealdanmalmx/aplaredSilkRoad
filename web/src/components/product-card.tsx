@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useCartStorage } from "@/hooks/useCartStorage";
+import { centsToDecimalCurrency } from "@/lib/utils";
 import { useState } from "react";
 import { Link } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
@@ -26,40 +27,39 @@ export default function ProductCard({ product }: Props) {
   }
 
   return (
-    <Card className="w-full pt-0 lg:hover:scale-105 lg:transition-all">
+    <Card className='w-full pt-0 lg:hover:scale-105 lg:transition-all'>
       <Link key={product.id} to={`/product/${product.id}`}>
-        <div className="aspect-video ">
+        <div className='aspect-video '>
           <img
             src={product.imageURL}
             alt={product.name}
-            className="h-72 w-full object-cover"
+            className='h-72 w-full object-cover'
           />
         </div>
 
-        <CardHeader className="p-2 min-h-44">
+        <CardHeader className='p-2 min-h-44'>
           <CardTitle>{product.name}</CardTitle>
           <CardDescription>
-            <b>{product.price} kr</b>
+            <b>{centsToDecimalCurrency(product.price)} kr</b>
             <p>{product.description}</p>
           </CardDescription>
         </CardHeader>
       </Link>
-      <CardFooter className="grid items-center h-auto gap-4">
+      <CardFooter className='grid items-center h-auto gap-4'>
         {/* {useIsMobile() && (
           <Button>
             <Link to={`product/${product.id}`}>View</Link>
           </Button>
         )} */}
-        <div className="flex justify-between w-full gap-4">
+        <div className='flex justify-between w-full gap-4'>
           <Button
-            className="flex flex-1 cursor-pointer"
-            onClick={() => AddItemToCart()}
-          >
+            className='flex flex-1 cursor-pointer'
+            onClick={() => AddItemToCart()}>
             Add to cart
           </Button>
           <Input
-            className="max-w-24"
-            type="number"
+            className='max-w-24'
+            type='number'
             min={1}
             value={amount}
             onChange={(e) => setAmount(Number(e.target.value))}
