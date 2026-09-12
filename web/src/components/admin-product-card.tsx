@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 
 import CustomDialog from "@/components/custom-dialog";
+import { centsToDecimalCurrency } from "@/lib/utils";
 import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
@@ -23,7 +24,7 @@ export function AdminProductCard({
   return (
     <Card className='relative my-4 md:my-0 mx-auto w-full sm pt-0 h-96'>
       <Badge className='absolute top-4 left-4 z-50 p-4 text-md'>
-        {product.price / 100}kr
+        {centsToDecimalCurrency(product.price)}kr
       </Badge>
       <Badge className='absolute top-32 right-4 z-50 p-4 text-md'>
         {product.slug}
