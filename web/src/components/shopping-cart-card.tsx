@@ -64,8 +64,9 @@ export default function ShoppingCartCard(props: Props) {
               á {centsToDecimalCurrency(props.product.price)} kr
             </p>
             <p className='text-nowrap'>
-              {centsToDecimalCurrency(props.product.price) *
-                props.cartItem.amount}{" "}
+              {centsToDecimalCurrency(
+                props.product.price * props.cartItem.amount,
+              )}{" "}
               kr
             </p>
           </div>
