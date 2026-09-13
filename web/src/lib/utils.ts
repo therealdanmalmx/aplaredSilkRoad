@@ -6,5 +6,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const centsToDecimalCurrency = (price: number) => {
-  return price / 100;
+  return (price / 100).toFixed(2);
 };
