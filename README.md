@@ -18,7 +18,7 @@ Appen är en e-handelsapp byggt i typescript både i frontend (React byggd på V
 
 Appen representerar en enkel version av ett e-handelssystem där man kan administrera produkter (full CRUD), se en produktlista och produktdetaljsida, lägga till och ta bort produkter i en kundvagn och sedan lägga en order via en checkout som bekräftas med en bekräftelsesida. 
 
-För att starta projektet så klonar man ner [aplaredsilkroad](https://github.com/therealdanmalmx/aplaredSilkRoad) till sin egen dator, öppnar två flikar **VSCode** (web och api), kör `npm install` i bägge mapparna och sedan `npm run dev` i båda. Man behäver även lägga till en `.env` fil där anslutningssträngen till databased läggs. Av säkerhetsskäl delas den inte här, utan ges ut på begäran. 
+För att starta projektet så klonar man ner [aplaredsilkroad](https://github.com/therealdanmalmx/aplaredSilkRoad) till sin egen dator, öppnar tre flikar **VSCode** (web, api och shared), kör `npm install` i de tre mapparna och sedan `npm run dev` i web och api. Man behäver även lägga till en `.env` fil där anslutningssträngen till databasen läggs (api). Av säkerhetsskäl delas den inte här, utan ges ut på begäran. 
 
 ## Krav för Godkänt
 
@@ -48,9 +48,9 @@ För att starta projektet så klonar man ner [aplaredsilkroad](https://github.co
 - [x] Det ska gå att gå till checkoutsidan och se innehållet i kundvagnen (knapp & url).
 - [x] Det ska gå att se det totala priset i kundvagnen.
 - [x] Det ska gå att ändra produkterna i kundvagnen (header + vyn + pris + ls).
-- [ ] Det ska gå att ange leveransuppgifter i ett formulär.
-- [ ] Samtliga fält för checkoutsidans formulär ska ha valideringsregler.
-- [ ] Formulären vid utcheckningen ska gå att automatiskt fyllas i.
+- [x] Det ska gå att ange leveransuppgifter i ett formulär.
+- [x] Samtliga fält för checkoutsidans formulär ska ha valideringsregler.
+- [x] Formulären vid utcheckningen ska gå att automatiskt fyllas i.
 - [ ] Bekräftelsesidan ska visa orderdetaljer och leveransuppgifter
 
 **Admin**
