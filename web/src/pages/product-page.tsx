@@ -1,5 +1,6 @@
 import { getProduct } from "@/api/product";
 import { useCartStorage } from "@/hooks/useCartStorage";
+import { centsToDecimalCurrency } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa6";
@@ -50,7 +51,9 @@ const ProductPage = () => {
   // const product = products.find((p: Product) => p.slug === slug);
 
   const totalPrice = () => {
-    return Number(quantity * Number(product.price / 100)).toFixed(2);
+    return Number(
+      quantity * Number(centsToDecimalCurrency(product.price)),
+    ).toFixed(2);
   };
 
   return (
@@ -65,7 +68,9 @@ const ProductPage = () => {
       <div className='flex flex-col justify-between md:ml-12 mt-8 md:mt-0 md:w-1/3'>
         <section className='flex flex-col gap-4'>
           <h1 className='text-4xl italic text-black'>{product.name}</h1>
-          <h3 className='text-primary text-2xl'>{product.price / 100} kr</h3>
+          <h3 className='text-primary text-2xl'>
+            {centsToDecimalCurrency(product.price)} kr
+          </h3>
           <p className='text-xl'>{product.description}</p>
         </section>
         <section className='flex justify-between gap-4 mt-20 md:mt-0'>

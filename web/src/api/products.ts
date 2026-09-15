@@ -1,7 +1,7 @@
 import type { Product } from "../../../api/src/interfaces/admin";
 
 export async function getProducts(): Promise<Product[]> {
-  const res = await fetch("http://localhost:3000/admin");
+  const res = await fetch("/api/v1/admin");
 
   const data = await res.json();
 

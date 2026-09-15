@@ -4,6 +4,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCartStorage } from "@/hooks/useCartStorage";
 import type { CartItem } from "@/lib/types";
+import { centsToDecimalCurrency } from "@/lib/utils";
+import toast from "react-hot-toast";
 import { LuTrash2 } from "react-icons/lu";
 import type { Product } from "../../../api/src/interfaces/admin";
 
@@ -15,6 +17,11 @@ interface Props {
 export default function ShoppingCartCard(props: Props) {
   const isMobile = useIsMobile();
   const { addItem, deleteItem } = useCartStorage();
+
+  const handleDelete = () => {
+    deleteItem(props.cartItem.id);
+    toast("Removed item from cart.", { icon: "🗑️" });
+  };
 
   return (
     <article className="flex gap-1 mb-2 p-2 items-center justify-between">
@@ -59,9 +66,14 @@ export default function ShoppingCartCard(props: Props) {
       <div className="flex flex-col items-end justify-between self-stretch">
         {props.product ? (
           <div>
-            <p className="text-nowrap">á {props.product.price} kr</p>
             <p className="text-nowrap">
-              {props.product.price * props.cartItem.amount} kr
+              á {centsToDecimalCurrency(props.product.price)} kr
+            </p>
+            <p className="text-nowrap">
+              {centsToDecimalCurrency(
+                props.product.price * props.cartItem.amount,
+              )}{" "}
+              kr
             </p>
           </div>
         ) : (
@@ -71,7 +83,7 @@ export default function ShoppingCartCard(props: Props) {
           <Button
             variant="ghost"
             className="cursor-pointer"
-            onClick={() => deleteItem(props.cartItem.id)}
+            onClick={handleDelete}
           >
             <LuTrash2 />
           </Button>

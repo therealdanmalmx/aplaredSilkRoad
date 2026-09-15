@@ -8,17 +8,24 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useCartStorage } from "@/hooks/useCartStorage";
+import { centsToDecimalCurrency } from "@/lib/utils";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router";
 import type { Product } from "../../../api/src/interfaces/admin";
 
-export default function ProductCard(product: Product) {
+interface Props {
+  product: Product;
+}
+
+export default function ProductCard({ product }: Props) {
   const [amount, setAmount] = useState(1);
   const { addItem } = useCartStorage();
 
   function AddItemToCart() {
     addItem({ id: product.id, amount });
     setAmount(1);
+    toast.success("Added item to cart");
   }
 
   return (
@@ -35,7 +42,7 @@ export default function ProductCard(product: Product) {
         <CardHeader className="p-2 min-h-44">
           <CardTitle>{product.name}</CardTitle>
           <CardDescription>
-            <b>{product.price} kr</b>
+            <b>{centsToDecimalCurrency(product.price)} kr</b>
             <p>{product.description}</p>
           </CardDescription>
         </CardHeader>
