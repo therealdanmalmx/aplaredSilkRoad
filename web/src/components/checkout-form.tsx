@@ -60,12 +60,8 @@ export default function CheckoutForm() {
     }
 
     // send (post) order to api
-    await orderMutation.mutateAsync(newOrder);
-    if (orderMutation.isError) {
-      return;
-    }
-
-    const newOrderId = await orderMutation.data.id;
+    const createdOrder = await orderMutation.mutateAsync(newOrder);
+    const newOrderId = createdOrder.id;
 
     // reset form & delete cart from local storage, then navigate to confirmation page
     orderForm.reset();
