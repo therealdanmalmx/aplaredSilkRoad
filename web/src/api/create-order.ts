@@ -7,5 +7,7 @@ export default async function postOrder(newOrder: CreateOrder) {
     body: JSON.stringify(newOrder),
   });
 
+  if (!res.ok) throw new Error("Failed to create new order. " + res.status);
+
   return await res.json();
 }
