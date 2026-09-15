@@ -12,17 +12,37 @@ const app = new Hono();
 app.get("/:id", async (c) => {
   const id = c.req.param("id");
 
-  const order = await db.orm.public.Order.where({ id })
-    .include("items")
-    .first();
+  const order = await db.orm.public.Order.where({ id }).first();
 
   if (!order) {
     return c.json({ error: "Could not find order." }, 404);
   }
 
-  //   const items = await db.orm.public.OrderItem.where({
-  //     orderId: order.id,
-  //   }).all();
+  const orderItems = await db.orm.public.OrderItem.where({
+    orderId: order.id,
+  }).all();
+
+  const productIds = orderItems.map((item) => item.productId);
+
+  const products = await db.orm.public.Product.where((product) =>
+    product.id.in(productIds),
+  ).all();
+
+  const items = orderItems.map((item) => {
+    const product = products.find((product) => product.id === item.productId);
+
+    if (!product) {
+      throw new Error(`Could not find product: ${item.productId}`);
+    }
+
+    return {
+      productId: item.productId,
+      quantity: item.quantity,
+      unitPrice: item.unitPrice,
+      name: product.name,
+      imageUrl: product.imageURL,
+    };
+  });
 
   const response = responseOrderSchema.parse({
     id: order.id,
@@ -39,7 +59,7 @@ app.get("/:id", async (c) => {
         zipCode: order.zipCode,
       },
     },
-    items: order.items,
+    items,
   });
 
   return c.json(response);
