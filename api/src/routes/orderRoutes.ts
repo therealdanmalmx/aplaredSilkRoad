@@ -12,15 +12,17 @@ const app = new Hono();
 app.get("/:id", async (c) => {
   const id = c.req.param("id");
 
-  const order = await db.orm.public.Order.first({ id });
+  const order = await db.orm.public.Order.where({ id })
+    .include("items")
+    .first();
 
   if (!order) {
     return c.json({ error: "Could not find order." }, 404);
   }
 
-  const items = await db.orm.public.OrderItem.where({
-    orderId: order.id,
-  }).all();
+  //   const items = await db.orm.public.OrderItem.where({
+  //     orderId: order.id,
+  //   }).all();
 
   const response = responseOrderSchema.parse({
     id: order.id,
@@ -37,7 +39,7 @@ app.get("/:id", async (c) => {
         zipCode: order.zipCode,
       },
     },
-    items,
+    items: order.items,
   });
 
   return c.json(response);

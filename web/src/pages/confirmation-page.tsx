@@ -13,7 +13,7 @@ export default function ConfirmationPage() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["product"],
+    queryKey: ["order"],
     queryFn: () => getOnId<Order>(String(id), ENDPOINT),
   });
 
@@ -35,6 +35,9 @@ export default function ConfirmationPage() {
               lands of {order.customer.address.city}
             </p>
           </div>
+          {order.items.map((i) => (
+            <div></div>
+          ))}
         </section>
       )}
     </>
