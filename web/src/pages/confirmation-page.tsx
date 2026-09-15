@@ -85,12 +85,26 @@ export default function ConfirmationPage() {
                 <CardTitle>Order details</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 text-sm">
-                <div className="flex justify-between gap-4">
-                  <span className="text-muted-foreground">Delivering to</span>
-                  <span className="text-right font-medium">
-                    {order.customer.address.street},{" "}
-                    {order.customer.address.city}
-                  </span>
+                <div className="flex flex-col justify-between gap-4">
+                  <div className="pt-2">
+                    <div className="mt-1 flex flex-col font-medium">
+                      <span className="text-muted-foreground">Customer </span>
+                      <span className="text-left font-medium">
+                        {order.customer.firstName} {order.customer.lastName}
+                      </span>
+                      <span className="text-left font-medium">
+                        {order.customer.phone}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="pt-2">
+                    <span className="text-muted-foreground">Delivering to</span>
+                    <div className="mt-1 flex flex-col font-medium">
+                      <span>{order.customer.address.street}</span>
+                      <span>{order.customer.address.city}</span>
+                      <span>{order.customer.address.zipCode}</span>
+                    </div>
+                  </div>
                 </div>
                 <div className="flex justify-between border-t border-border pt-4 text-base">
                   <span className="font-medium">Total</span>
