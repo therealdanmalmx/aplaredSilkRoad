@@ -2,7 +2,7 @@
 
 ### The road to happiness leads through Aplared
 
-Appen är en e-handelsapp byggt i typescript både i frontend (React byggd på Vite) och backend (Hono), som använder sig av Shadcn som designsystem, React Hook Form för formulärhantering, Zod för validering, React Hot Toast för notifikationer och React Spinners för laddningseffekter. Den persisterar datan i en Postgre databas som driftas på Neon och modeleras med Prisma. API:erna hanteras med Tanstack Query. Länkar till respektive finns nedan.
+Appen är en e-handelsapp byggd i typescript både i frontend (React byggd på Vite) och backend (Hono), som använder sig av Shadcn som designsystem, React Hook Form för formulärhantering, Zod för validering, React Hot Toast för notifikationer och React Spinners för laddningseffekter. Den persisterar datan i en Postgre databas som driftas på Neon och modelleras med Prisma. API-anropen hanteras med Tanstack Query. Länkar till respektive finns nedan.
 
 - [React](https://react.dev)
 - [Vite](https://vite.dev)
@@ -11,14 +11,14 @@ Appen är en e-handelsapp byggt i typescript både i frontend (React byggd på V
 - [React Hook Form](https://react-hook-form.com)
 - [React Hot Toast](https://react-hot-toast.com)
 - [React Spinners](https://www.davidhu.io/react-spinners)
-- [Zod](https://react-hook-form.com)
+- [Zod](https://zod.dev/)
 - [Neon](https://neon.com)
 - [Prisma](https://www.prisma.io/)
 - [TanStack Query](https://tanstack.com/query/latest)
 
 Appen representerar en enkel version av ett e-handelssystem där man kan administrera produkter (full CRUD), se en produktlista och produktdetaljsida, lägga till och ta bort produkter i en kundvagn och sedan lägga en order via en checkout som bekräftas med en bekräftelsesida.
 
-För att starta projektet så klonar man ner [aplaredsilkroad](https://github.com/therealdanmalmx/aplaredSilkRoad) till sin egen dator, öppnar tre flikar **VSCode** (web, api och shared), kör `npm install` i de tre mapparna och sedan `npm run dev` i web och api. Man behäver även lägga till en `.env` fil där anslutningssträngen till databasen läggs (api). Av säkerhetsskäl delas den inte här, utan ges ut på begäran.
+För att starta projektet så klonar man ner [aplaredsilkroad](https://github.com/therealdanmalmx/aplaredSilkRoad) till sin egen dator, öppna projektet i **VSCode**, kör `npm install` i mapparna web, api och shared. Kör sedan `npm run dev` i web och api för att starta projektet. Man behöver även lägga till en `.env` fil där anslutningssträngen till databasen läggs (api). Av säkerhetsskäl delas den inte här, utan ges ut på begäran.
 
 ## Krav för Godkänt
 
